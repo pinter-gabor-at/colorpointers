@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "colorpointers",
+  "version": "${version}",
+  "name": "Color Pointers",
+  "description": "Use arrows to mark your way.",
+  "authors": [
+    "Pintér Gábor <pinter.gabor@gmx.at>"
+  ],
+  "contact": {
+    "homepage": "https://pintergabor.eu/en/minecraft/mods/colorpointers/",
+    "sources": "https://gitlab.com/pintergabor/colorpointers"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "eu.pintergabor.colorpointers.Mod"
+    ],
+    "client": [
+      "eu.pintergabor.colorpointers.ModClient"
+    ],
+    "fabric-datagen": [
+      "eu.pintergabor.colorpointers.Datagen"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.6",
+    "minecraft": "~1.20.4",
+    "java": ">=17",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "ironsigns": "*"
+  }
+}
