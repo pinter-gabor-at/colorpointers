@@ -1,17 +1,18 @@
 {
 	"ambientocclusion": true,
 	"textures": {
-		"particle": "colorpointers:block/arrow_mark_center",
-		"tex": "colorpointers:block/arrow_mark_center"
+		"particle": "colorpointers:block/arrow_mark_cross",
+		"0": "colorpointers:block/arrow_mark_cross"
 	},
 	"elements": [
 		{
-			"from": [0, 0, 0],
-			"to": [16, 0.001, 16],
+      "from": [1.4, 0, 1.4],
+      "to": [14.6, 0.001, 14.6],
+      "rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8]},
 			"shade": true,
 			"faces": {
-				"up": {"uv": [0, 0, 16, 16], "texture": "#tex", "tintindex": 0},
-        "down": {"uv": [0, 16, 16, 0], "texture": "#tex", "tintindex": 0}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "tintindex": 0},
+        "down": {"uv": [0, 16, 16, 0], "texture": "#0", "tintindex": 0}
 			}
 		}
 	]
