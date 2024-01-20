@@ -1,0 +1,37 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "colorpointers:arrow_mark_shaft",
+		"1": "colorpointers:arrow_mark_head",
+		"particle": "colorpointers:arrow_mark"
+	},
+	"elements": [
+		{
+			"name": "head",
+			"from": [1, 0, 1],
+			"to": [15, 0.001, 15],
+			"faces": {
+				"up": {"uv": [16, 0, 0, 16], "texture": "#1", "tintindex": 0},
+				"down": {"uv": [16, 16, 0, 0], "texture": "#1", "tintindex": 0}
+			}
+		},
+		{
+			"name": "shaft",
+			"from": [1.4, 0, 1.4],
+			"to": [14.6, 0.001, 14.6],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#0", "tintindex": 0}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "arrow",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1]
+		}
+	]
+}

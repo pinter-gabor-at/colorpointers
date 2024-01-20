@@ -1,0 +1,18 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "colorpointers:arrow_mark",
+		"particle": "colorpointers:arrow_mark"
+	},
+	"elements": [
+		{
+			"from": [0.1, 0, 0.1],
+			"to": [15.9, 0.001, 15.9],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "tintindex": 0},
+				"down": {"uv": [0, 16, 16, 0], "texture": "#0", "tintindex": 0}
+			}
+		}
+	]
+}
