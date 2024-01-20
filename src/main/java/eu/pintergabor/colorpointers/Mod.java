@@ -1,6 +1,8 @@
 package eu.pintergabor.colorpointers;
 
 import eu.pintergabor.colorpointers.main.ArrowRegistry;
+import eu.pintergabor.colorpointers.main.Main;
+
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ public class Mod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		Main.init();
 		ArrowRegistry.init();
 	}
 }
