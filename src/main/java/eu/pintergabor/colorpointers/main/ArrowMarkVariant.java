@@ -1,82 +1,74 @@
 package eu.pintergabor.colorpointers.main;
 
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockSetType;
-import net.minecraft.block.WoodType;
-import net.minecraft.item.HangingSignItem;
-import net.minecraft.item.Item;
+import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
+
+import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import eu.pintergabor.colorpointers.items.ArrowMarkItem;
+import eu.pintergabor.colorpointers.util.ModIdentifier;
+
+import net.minecraft.block.BlockState;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.item.SignItem;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 
 /**
- * One IronSign variant
+ * One ArrowMark variant
  */
 public class ArrowMarkVariant {
 
 	/**
-	 * Standing sign block
+	 * ArrowMark block
 	 * <p>
 	 * Read only outside class.
 	 */
-	public Block block;
+	public ArrowMarkBlock block;
 
 	/**
-	 * Sign item
+	 * ArrowMark item
 	 * <p>
 	 * Read only outside class.
 	 */
-	public Item item;
+	public ArrowMarkItem item;
 
 	/**
-	 * Create one variant of IronSign
-	 * @param name The name of the IronSign
+	 * Create one variant of ArrowMark
 	 */
-	public ArrowMarkVariant(String name) {
-		// WoodType is not really any type of wood, but a definition
-		// of the location of the texture files, and the definition of sounds.
-		// Sign entity: resources/assets/<MODID>/textures/entity/signs/<name>.png
-		// WallSign entity is the hard-coded part of the Sign entity.
-		// Sign and WallSign GUIs are the same, and they are hard-coded part of the Sign entity.
-		// HangingSign entity is the hard-coded part of the HangingWallSign entity.
-		// HangingWallSign entity: resources/assets/<MODID>/textures/entity/signs/hanging/<name>.png
-		// HangingSign GUI: resources/assets/<MODID>/textures/gui/hanging_signs/<name>.png
-		woodType = (new WoodTypeBuilder())
-			.soundGroup(BlockSoundGroup.METAL)
-			.hangingSignSoundGroup(BlockSoundGroup.METAL)
-			.register(
-				new ModIdentifier(name), BlockSetType.IRON);
-		// Blocks
-		final FabricBlockSettings settings = FabricBlockSettings.create()
-			.solid().noCollision().strength(0.5f, 6.0f).requiresTool();
-		block = registerBlock(name,
-			new IronSignBlock(woodType, settings));
-		wallBlock = registerBlock("wall_" + name,
-			new IronWallSignBlock(woodType, settings));
-		hangingBlock = registerBlock("hanging_" + name,
-			new IronHangingSignBlock(woodType, settings));
-		hangingWallBlock = registerBlock("hanging_wall_" + name,
-			new IronWallHangingSignBlock(woodType, settings));
-		// Items
-		item = registerItem(name,
-			new SignItem(
-				new FabricItemSettings().maxCount(64),
-				block, wallBlock));
-		hangingItem = registerItem("hanging_" + name,
-			new HangingSignItem(
-				hangingBlock, hangingWallBlock,
-				new FabricItemSettings().maxCount(64)));
+	public ArrowMarkVariant(String name, ArrowMarkColor color) {
+		// Block
+		block = new ArrowMarkBlock(FabricBlockSettings
+			.create()
+			.replaceable()
+			.noCollision()
+			.nonOpaque()
+			.sounds(BlockSoundGroup.MOSS_CARPET)
+			.luminance(arrowMarkBlockLumi)
+			.postProcess(ArrowMarkVariant::always)
+			.emissiveLighting(ArrowMarkVariant::always)
+			.pistonBehavior(PistonBehavior.DESTROY));
+		Registry.register(Registries.BLOCK, new ModIdentifier(name), block);
+		// Item
+		item = new ArrowMarkItem(new FabricItemSettings(), color);
+		Registry.register(Registries.ITEM, new ModIdentifier(name), item);
+		// Link them
+		item.setBlock(block);
+		block.setItem(item);
 		// Item groups
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(
 			entries -> {
 				entries.add(item);
-				entries.add(hangingItem);
 			});
+	}
+
+	private static boolean always(BlockState blockState, BlockView blockView, BlockPos blockPos) {
+		return true;
 	}
 }

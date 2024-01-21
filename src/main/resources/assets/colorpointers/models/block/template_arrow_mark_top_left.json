@@ -1,0 +1,27 @@
+{
+  "ambientocclusion": true,
+  "textures": {
+    "particle": "#shaft"
+  },
+  "elements": [
+    {
+      "from": [1.4, 0, 1.4],
+      "to": [14.6, 0.001, 14.6],
+      "rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
+      "shade": true,
+      "faces": {
+        "up": {"uv": [0, 0, 16, 16], "texture": "#shaft", "tintindex": 0},
+        "down": {"uv": [0, 16, 16, 0], "texture": "#shaft", "tintindex": 0}
+      }
+    },
+    {
+      "from": [1, 0, 1],
+      "to": [15, 0.001, 15],
+      "shade": true,
+      "faces": {
+        "up": {"uv": [16, 0, 0, 16], "texture": "#head", "tintindex": 0},
+        "down": {"uv": [16, 16, 0, 0], "texture": "#head", "tintindex": 0}
+      }
+    }
+  ]
+}

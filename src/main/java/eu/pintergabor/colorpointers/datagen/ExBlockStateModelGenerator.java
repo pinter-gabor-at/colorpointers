@@ -1,12 +1,18 @@
 package eu.pintergabor.colorpointers.datagen;
 
+import java.util.Optional;
+
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import eu.pintergabor.colorpointers.util.ModIdentifier;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.BlockStateVariant;
 import net.minecraft.data.client.BlockStateVariantMap;
+import net.minecraft.data.client.Model;
 import net.minecraft.data.client.ModelIds;
+import net.minecraft.data.client.TextureKey;
+import net.minecraft.data.client.TextureMap;
 import net.minecraft.data.client.VariantSettings;
 import net.minecraft.data.client.VariantsBlockStateSupplier;
 import net.minecraft.state.property.Properties;
@@ -118,6 +124,20 @@ public class ExBlockStateModelGenerator {
 	 * Generate blockstates for a thin, flat model that has 6 directions and 9 orientation
 	 */
 	public void registerFlat9Direction(Block arrowMarkBlock) {
+		Model model = new Model(Optional.of(new ModIdentifier("block/template_arrow_mark")), Optional.empty(), TextureKey.TEXTURE);
+		generator.createSubModel(arrowMarkBlock, "_test", model, identifier -> {
+			return new TextureMap()
+				.put(TextureKey.TEXTURE, ModelIds.getBlockModelId(arrowMarkBlock));
+		});
+		TextureKey shaft = TextureKey.of("shaft");
+		TextureKey head = TextureKey.of("head");
+		Model topleft = new Model(Optional.of(new ModIdentifier("block/template_arrow_mark_top_left")),
+			Optional.empty(), shaft, head);
+		generator.createSubModel(arrowMarkBlock, "_top_left_test", topleft, identifier -> {
+			return new TextureMap()
+				.put(shaft, ModelIds.getBlockSubModelId(arrowMarkBlock, "_shaft"))
+				.put(head, ModelIds.getBlockSubModelId(arrowMarkBlock, "_head"));
+		});
 		generator.blockStateCollector.accept(VariantsBlockStateSupplier
 			.create(arrowMarkBlock, BlockStateVariant.create())
 			.coordinate(createFlat9Direction(arrowMarkBlock)));

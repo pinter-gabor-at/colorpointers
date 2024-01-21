@@ -6,6 +6,8 @@ import java.util.Random;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 
+import eu.pintergabor.colorpointers.main.ArrowMarkColor;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -16,19 +18,22 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 public class ArrowMarkItem extends Item {
-	protected ArrowMarkBlock arrowMarkBlock;
-	protected DyeColor dyeColor;
+	protected ArrowMarkBlock block;
+	protected ArrowMarkColor color;
 
-	public ArrowMarkItem(Settings settings, DyeColor dyeColor, ArrowMarkBlock arrowMarkBlock) {
+	public ArrowMarkItem(Settings settings, ArrowMarkColor color) {
 		super(settings);
-		this.dyeColor = dyeColor;
-		this.arrowMarkBlock = arrowMarkBlock;
+		this.color = color;
+	}
+
+	public ArrowMarkItem setBlock(ArrowMarkBlock block) {
+		this.block = block;
+		return this;
 	}
 
 	@Override
@@ -58,7 +63,7 @@ public class ArrowMarkItem extends Item {
 
 			// The new block
 			final int orientation = getClickedRegion(context.getHitPos(), clickedFace);
-			BlockState blockState = arrowMarkBlock.getDefaultState()
+			BlockState blockState = block.getDefaultState()
 				.with(ArrowMarkBlock.FACING, clickedFace)
 				.with(ArrowMarkBlock.ORIENTATION, orientation);
 

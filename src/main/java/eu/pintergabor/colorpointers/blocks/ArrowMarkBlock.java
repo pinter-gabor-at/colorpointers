@@ -6,7 +6,7 @@ import static eu.pintergabor.colorpointers.util.BlockRegion.MIDDLECENTER;
 
 import java.util.Random;
 
-import eu.pintergabor.colorpointers.main.ArrowRegistry;
+import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.Block;
@@ -34,7 +34,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
 public class ArrowMarkBlock extends Block {
-
 	public static final DirectionProperty FACING = Properties.FACING;
 	public static final IntProperty ORIENTATION = IntProperty.of("orientation", 0, 8);
 
@@ -51,11 +50,19 @@ public class ArrowMarkBlock extends Block {
 	private static final VoxelShape NORTH_AABB = Block.createCuboidShape(
 		margin, margin, 16D - thick, 16D - margin, 16D - margin, 16D);
 
+	protected ArrowMarkItem item;
+
 	public ArrowMarkBlock(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.getDefaultState()
 			.with(FACING, Direction.NORTH)
 			.with(ORIENTATION, MIDDLECENTER));
+	}
+
+	@SuppressWarnings("UnusedReturnValue")
+	public ArrowMarkBlock setItem(ArrowMarkItem item) {
+		this.item = item;
+		return this;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -74,7 +81,7 @@ public class ArrowMarkBlock extends Block {
 	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state,
 		@Nullable BlockEntity blockEntity, ItemStack tool) {
 		if (!world.isClient) {
-			final ItemStack stack = new ItemStack(ArrowRegistry.arrowMarkItem);
+			final ItemStack stack = new ItemStack(item);
 			dropStack(world, pos, stack);
 		}
 	}
@@ -92,12 +99,12 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return switch (state.get(FACING)) {
-			case UP -> UP_AABB;
+			default -> UP_AABB;
+			case DOWN -> DOWN_AABB;
 			case NORTH -> NORTH_AABB;
-			case WEST -> WEST_AABB;
-			case EAST -> EAST_AABB;
 			case SOUTH -> SOUTH_AABB;
-			default -> DOWN_AABB;
+			case EAST -> EAST_AABB;
+			case WEST -> WEST_AABB;
 		};
 	}
 

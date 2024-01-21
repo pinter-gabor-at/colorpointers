@@ -1,8 +1,7 @@
 {
 	"ambientocclusion": true,
 	"textures": {
-		"particle": "colorpointers:block/arrow_mark",
-		"0": "colorpointers:block/arrow_mark"
+		"particle": "#texture"
 	},
 	"elements": [
 		{
@@ -11,8 +10,8 @@
       "rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
 			"shade": true,
 			"faces": {
-				"up": {"uv": [0, 0, 16, 16], "texture": "#0", "tintindex": 0},
-        "down": {"uv": [0, 16, 16, 0], "texture": "#0", "tintindex": 0}
+				"up": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
+        "down": {"uv": [0, 16, 16, 0], "texture": "#texture", "tintindex": 0}
 			}
 		}
 	]

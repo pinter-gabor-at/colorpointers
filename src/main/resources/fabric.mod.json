@@ -32,6 +32,6 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "ironsigns": "*"
+    "ArrowMarks": "*"
   }
 }

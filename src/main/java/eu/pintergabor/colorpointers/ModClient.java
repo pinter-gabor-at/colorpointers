@@ -1,11 +1,11 @@
 package eu.pintergabor.colorpointers;
 
-import eu.pintergabor.colorpointers.main.ClientArrowRegistry;
+import eu.pintergabor.colorpointers.main.ClientMain;
 import net.fabricmc.api.ClientModInitializer;
 
 public class ModClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		ClientArrowRegistry.registerClient();
+		ClientMain.init();
 	}
 }
