@@ -6,13 +6,11 @@ import java.util.Random;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 
-import eu.pintergabor.colorpointers.main.ArrowMarkColor;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
@@ -22,18 +20,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class ArrowMarkItem extends Item {
-	protected ArrowMarkBlock block;
-	protected ArrowMarkColor color;
-
-	public ArrowMarkItem(Settings settings, ArrowMarkColor color) {
-		super(settings);
-		this.color = color;
-	}
-
-	public ArrowMarkItem setBlock(ArrowMarkBlock block) {
-		this.block = block;
-		return this;
+public class ArrowMarkItem extends BlockItem {
+	public ArrowMarkItem(Block block, Settings settings) {
+		super(block, settings);
 	}
 
 	@Override
@@ -45,15 +34,10 @@ public class ArrowMarkItem extends Item {
 		final ItemStack stack = context.getStack();
 		final Direction clickedFace = context.getSide();
 		final BlockPos markPosition = pos.offset(clickedFace);
-		if (world.isAir(markPosition) ||
-			world.getBlockState(markPosition).getBlock() instanceof ArrowMarkBlock) {
+		if (world.isAir(markPosition)) {
 			if (player != null &&
 				!Block.isFaceFullSquare(clickedBlockState
 					.getCollisionShape(world, pos, ShapeContext.of(player)), clickedFace)) {
-				return ActionResult.PASS;
-			} else if ((!world.isAir(markPosition) &&
-				world.getBlockState(markPosition).getBlock() instanceof ArrowMarkBlock) ||
-				stack.getItem() != this) {
 				return ActionResult.PASS;
 			}
 
@@ -63,7 +47,7 @@ public class ArrowMarkItem extends Item {
 
 			// The new block
 			final int orientation = getClickedRegion(context.getHitPos(), clickedFace);
-			BlockState blockState = block.getDefaultState()
+			BlockState blockState = getBlock().getDefaultState()
 				.with(ArrowMarkBlock.FACING, clickedFace)
 				.with(ArrowMarkBlock.ORIENTATION, orientation);
 

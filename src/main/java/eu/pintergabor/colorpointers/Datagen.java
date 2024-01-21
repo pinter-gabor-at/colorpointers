@@ -1,6 +1,7 @@
 package eu.pintergabor.colorpointers;
 
 import eu.pintergabor.colorpointers.datagen.ModModelProvider;
+import eu.pintergabor.colorpointers.datagen.ModBlockLootTableGenerator;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -9,5 +10,6 @@ public class Datagen implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 		pack.addProvider(ModModelProvider::new);
+		pack.addProvider(ModBlockLootTableGenerator::new);
 	}
 }

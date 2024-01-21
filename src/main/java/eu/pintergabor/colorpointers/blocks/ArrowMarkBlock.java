@@ -6,18 +6,13 @@ import static eu.pintergabor.colorpointers.util.BlockRegion.MIDDLECENTER;
 
 import java.util.Random;
 
-import eu.pintergabor.colorpointers.items.ArrowMarkItem;
-import org.jetbrains.annotations.Nullable;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager;
@@ -33,6 +28,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
 
+/**
+ * An ArrowMarkBlock is a thin, flat block that has 6 directions and 9 orientations
+ */
 public class ArrowMarkBlock extends Block {
 	public static final DirectionProperty FACING = Properties.FACING;
 	public static final IntProperty ORIENTATION = IntProperty.of("orientation", 0, 8);
@@ -50,8 +48,6 @@ public class ArrowMarkBlock extends Block {
 	private static final VoxelShape NORTH_AABB = Block.createCuboidShape(
 		margin, margin, 16D - thick, 16D - margin, 16D - margin, 16D);
 
-	protected ArrowMarkItem item;
-
 	public ArrowMarkBlock(Settings settings) {
 		super(settings);
 		this.setDefaultState(this.getDefaultState()
@@ -59,12 +55,9 @@ public class ArrowMarkBlock extends Block {
 			.with(ORIENTATION, MIDDLECENTER));
 	}
 
-	@SuppressWarnings("UnusedReturnValue")
-	public ArrowMarkBlock setItem(ArrowMarkItem item) {
-		this.item = item;
-		return this;
-	}
-
+	/**
+	 * Unconditional pass-through
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canPathfindThrough(BlockState state, BlockView world, BlockPos pos, NavigationType type) {
@@ -78,15 +71,6 @@ public class ArrowMarkBlock extends Block {
 	}
 
 	@Override
-	public void afterBreak(World world, PlayerEntity player, BlockPos pos, BlockState state,
-		@Nullable BlockEntity blockEntity, ItemStack tool) {
-		if (!world.isClient) {
-			final ItemStack stack = new ItemStack(item);
-			dropStack(world, pos, stack);
-		}
-	}
-
-	@Override
 	protected void spawnBreakParticles(World world, PlayerEntity player, BlockPos pos, BlockState state) {
 		if (!world.isClient) {
 			world.playSound(null, pos,
@@ -95,6 +79,9 @@ public class ArrowMarkBlock extends Block {
 		}
 	}
 
+	/**
+	 * Thin, flat outline shape
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -108,18 +95,27 @@ public class ArrowMarkBlock extends Block {
 		};
 	}
 
+	/**
+	 * Unconditional pass-through
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		return VoxelShapes.empty();
 	}
 
+	/**
+	 * Unconditional can-replace
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canReplace(BlockState state, ItemPlacementContext context) {
 		return true;
 	}
 
+	/**
+	 * Can place at any full face
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
@@ -128,6 +124,9 @@ public class ArrowMarkBlock extends Block {
 			.getCollisionShape(world, pos.offset(facing)), facing);
 	}
 
+	/**
+	 * Break, if neighboring full face block is broken
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState,

@@ -9,6 +9,8 @@ import eu.pintergabor.colorpointers.util.ModIdentifier;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -53,14 +55,12 @@ public class ArrowMarkVariant {
 			.luminance(arrowMarkBlockLumi)
 			.postProcess(ArrowMarkVariant::always)
 			.emissiveLighting(ArrowMarkVariant::always)
-			.pistonBehavior(PistonBehavior.DESTROY));
+			.pistonBehavior(PistonBehavior.DESTROY)
+		);
 		Registry.register(Registries.BLOCK, new ModIdentifier(name), block);
 		// Item
-		item = new ArrowMarkItem(new FabricItemSettings(), color);
+		item = new ArrowMarkItem(block, new FabricItemSettings());
 		Registry.register(Registries.ITEM, new ModIdentifier(name), item);
-		// Link them
-		item.setBlock(block);
-		block.setItem(item);
 		// Item groups
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(
 			entries -> {

@@ -16,14 +16,20 @@ public class ModModelProvider extends FabricModelProvider {
 		super(output);
 	}
 
+	/**
+	 * Generate block models and block states
+	 */
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-		ExBlockStateModelGenerator exGenerator = new ExBlockStateModelGenerator(blockStateModelGenerator);
+		ModModelGenerator generator = new ModModelGenerator(blockStateModelGenerator);
 		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			exGenerator.registerFlat9Direction(arrowMark.block);
+			generator.registerFlat9Direction(arrowMark.block);
 		}
 	}
 
+	/**
+	 * Generate item models
+	 */
 	@Override
 	public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 		for (ArrowMarkVariant arrowMark : arrowMarks) {

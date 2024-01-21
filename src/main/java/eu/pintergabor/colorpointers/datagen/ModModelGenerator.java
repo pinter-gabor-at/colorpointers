@@ -19,10 +19,10 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
-public class ExBlockStateModelGenerator {
+public class ModModelGenerator {
 	private final BlockStateModelGenerator generator;
 
-	public ExBlockStateModelGenerator(BlockStateModelGenerator generator) {
+	public ModModelGenerator(BlockStateModelGenerator generator) {
 		this.generator = generator;
 	}
 
@@ -102,44 +102,61 @@ public class ExBlockStateModelGenerator {
 		);
 	}
 
+	public static final TextureKey TEXTUREKEY_SHAFT = TextureKey.of("shaft");
+	public static final TextureKey TEXTUREKEY_HEAD = TextureKey.of("head");
+	public static final String PARENT = "block/template_arrow_mark";
+
 	/**
-	 * Create blockstates for 6 directions and 9 orientation
+	 * Create center model
 	 */
-	public static BlockStateVariantMap createFlat9Direction(Block arrowMarkBlock) {
+	public Identifier createCenterModel(Block block) {
+		Model model = new Model(Optional.of(new ModIdentifier(PARENT)),
+			Optional.empty(), TextureKey.TEXTURE);
+		return generator.createSubModel(block, "", model, identifier -> new TextureMap()
+			.put(TextureKey.TEXTURE, ModelIds.getBlockModelId(block)));
+	}
+
+	/**
+	 * Create shaft+head type models
+	 */
+	public Identifier createShaftHeadModel(Block block, String suffix) {
+		Model model = new Model(Optional.of(new ModIdentifier(PARENT + suffix)),
+			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
+		return generator.createSubModel(block, suffix, model, identifier -> new TextureMap()
+			.put(TEXTUREKEY_SHAFT, ModelIds.getBlockSubModelId(block, "_shaft"))
+			.put(TEXTUREKEY_HEAD, ModelIds.getBlockSubModelId(block, "_head")));
+	}
+
+	/**
+	 * Create blockstates for 6 directions and 9 orientations
+	 */
+	public BlockStateVariantMap createFlat9Direction(Block block) {
+		// Models
+		Identifier center = createCenterModel(block);
+		Identifier topleft = createShaftHeadModel(block, "_top_left");
+		Identifier top = createShaftHeadModel(block, "_top");
+		Identifier topright = createShaftHeadModel(block, "_top_right");
+		Identifier right = createShaftHeadModel(block, "_right");
+		// BlockStates
 		var map = BlockStateVariantMap
 			.create(Properties.FACING, ArrowMarkBlock.ORIENTATION);
-		registerFlatNormal(map, 0, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top_left"));
-		registerFlatNormal(map, 1, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top"));
-		registerFlatNormal(map, 2, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top_right"));
-		registerFlatFlipped(map, 3, ModelIds.getBlockSubModelId(arrowMarkBlock, "_right"));
-		registerFlatNormal(map, 4, ModelIds.getBlockModelId(arrowMarkBlock));
-		registerFlatNormal(map, 5, ModelIds.getBlockSubModelId(arrowMarkBlock, "_right"));
-		registerFlatFlipped(map, 6, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top_right"));
-		registerFlatFlipped(map, 7, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top"));
-		registerFlatFlipped(map, 8, ModelIds.getBlockSubModelId(arrowMarkBlock, "_top_left"));
+		registerFlatNormal(map, 0, topleft);
+		registerFlatNormal(map, 1, top);
+		registerFlatNormal(map, 2, topright);
+		registerFlatFlipped(map, 3, right);
+		registerFlatNormal(map, 4, center);
+		registerFlatNormal(map, 5, right);
+		registerFlatFlipped(map, 6, topright);
+		registerFlatFlipped(map, 7, top);
+		registerFlatFlipped(map, 8, topleft);
 		return map;
 	}
 
 	/**
-	 * Generate blockstates for a thin, flat model that has 6 directions and 9 orientation
+	 * Generate blockstates for a thin, flat model that has 6 directions and 9 orientations
 	 */
-	public void registerFlat9Direction(Block arrowMarkBlock) {
-		Model model = new Model(Optional.of(new ModIdentifier("block/template_arrow_mark")), Optional.empty(), TextureKey.TEXTURE);
-		generator.createSubModel(arrowMarkBlock, "_test", model, identifier -> {
-			return new TextureMap()
-				.put(TextureKey.TEXTURE, ModelIds.getBlockModelId(arrowMarkBlock));
-		});
-		TextureKey shaft = TextureKey.of("shaft");
-		TextureKey head = TextureKey.of("head");
-		Model topleft = new Model(Optional.of(new ModIdentifier("block/template_arrow_mark_top_left")),
-			Optional.empty(), shaft, head);
-		generator.createSubModel(arrowMarkBlock, "_top_left_test", topleft, identifier -> {
-			return new TextureMap()
-				.put(shaft, ModelIds.getBlockSubModelId(arrowMarkBlock, "_shaft"))
-				.put(head, ModelIds.getBlockSubModelId(arrowMarkBlock, "_head"));
-		});
+	public void registerFlat9Direction(Block block) {
 		generator.blockStateCollector.accept(VariantsBlockStateSupplier
-			.create(arrowMarkBlock, BlockStateVariant.create())
-			.coordinate(createFlat9Direction(arrowMarkBlock)));
+			.create(block).coordinate(createFlat9Direction(block)));
 	}
 }
