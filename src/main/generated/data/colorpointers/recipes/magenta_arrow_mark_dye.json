@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "colorpointers:item_tag"
+    },
+    {
+      "tag": "c:magenta_dyes"
+    }
+  ],
+  "result": {
+    "item": "colorpointers:magenta_arrow_mark"
+  }
+}

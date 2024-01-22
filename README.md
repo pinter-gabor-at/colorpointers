@@ -1,13 +1,11 @@
 # Color Pointers (Fabric)
 
-![Screenshot](./images/screenshot.png "Arrow Pointers screenshot")
+![Screenshot](./images/screenshot1.png "Arrow Pointers screenshot")
 
-**Allows you to place arrows on any full block to aid you on your mining journeys. Never lose your way again.**
+**Allows you to place high contrast arrow pointers on any full block to aid you on your mining journeys. Never lose your way again.**
 
-Hitting the corner of a block places an arrow pointing in that direction, hitting the center creates an X, but consumes 2 arrows.  
+Hitting the corner of a block places an arrow pointing in that direction, hitting the center creates an X.  
 The placed arrows emit a faint light, and they are visible even in the dark.  
-Spectral arrows work similarily, but the placed arrows are brighter, perfect for caving action!
-
 
 ## License
 
@@ -23,16 +21,16 @@ Quite often, when I start learning programming on a new platform, I find even th
 Tutorials, written by experts, with years of experience programming on that platform, sometimes forget how difficult those first step are.  
 This is why I decided to make my first Minecraft mods publicly available.
 
-
 ## Requires  
 - [Fabric API](https://modrinth.com/mod/fabric-api)
 
-## Thanks
+## Recommended addons
 
-This mod was inspired by [Chalk](https://modrinth.com/mod/chalk) made by [DaFuqs](https://modrinth.com/user/DaFuqs).
-Reading his code helped me a lot writing this mod.
+[Iron Signs](https://modrinth.com/mod/ironsigns) is a good companion mod to place matching color signs next to the arrows.  
 
-## Recommended addons  
+## Alternative addons
+
+[Arrow Pointers](https://modrinth.com/mod/arrow-pointers) allows you to mark your way with vanilla arrows.  
 [Chalk](https://modrinth.com/mod/chalk) provides a different way to mark your path with arrows.  
 And [Chalk: Colorful Addon](https://modrinth.com/mod/chalk-colorful-addon) adds variants of chalk in every color!
 

@@ -128,7 +128,7 @@ public class ModModelGenerator {
 	}
 
 	/**
-	 * Create blockstates for 6 directions and 9 orientations
+	 * Create models and blockstates for 6 directions and 9 orientations
 	 */
 	public BlockStateVariantMap createFlat9Direction(Block block) {
 		// Models
@@ -153,7 +153,7 @@ public class ModModelGenerator {
 	}
 
 	/**
-	 * Generate blockstates for a thin, flat model that has 6 directions and 9 orientations
+	 * Generate models and blockstates for a thin, flat model that has 6 directions and 9 orientations
 	 */
 	public void registerFlat9Direction(Block block) {
 		generator.blockStateCollector.accept(VariantsBlockStateSupplier

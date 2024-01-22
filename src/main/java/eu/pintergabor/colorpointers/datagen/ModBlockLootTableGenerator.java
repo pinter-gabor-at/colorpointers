@@ -2,6 +2,8 @@ package eu.pintergabor.colorpointers.datagen;
 
 import static eu.pintergabor.colorpointers.main.Main.arrowMarks;
 
+import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.ArrowMarkVariant;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,6 +14,9 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
 		super(dataOutput);
 	}
 
+	/**
+	 * Every {@link ArrowMarkBlock} drops the corresponding {@link ArrowMarkItem}
+	 */
 	@Override
 	public void generate() {
 		for (ArrowMarkVariant arrowMark : arrowMarks) {

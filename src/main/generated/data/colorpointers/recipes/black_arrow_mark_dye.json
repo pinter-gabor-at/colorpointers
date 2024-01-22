@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "colorpointers:item_tag"
+    },
+    {
+      "tag": "c:black_dyes"
+    }
+  ],
+  "result": {
+    "item": "colorpointers:black_arrow_mark"
+  }
+}

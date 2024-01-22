@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:arrow"
+    },
+    "C": {
+      "item": "minecraft:magenta_carpet"
+    }
+  },
+  "pattern": [
+    " /",
+    "C "
+  ],
+  "result": {
+    "count": 2,
+    "item": "colorpointers:magenta_arrow_mark"
+  }
+}

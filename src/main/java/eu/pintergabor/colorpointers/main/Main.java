@@ -50,7 +50,7 @@ public final class Main {
 		arrowMarks = new ArrowMarkVariant[arrowMarkColors.length];
 		for (int i = 0; i < arrowMarkColors.length; i++) {
 			arrowMarks[i] = new ArrowMarkVariant(
-				arrowMarkColors[i].getName() + "_arrow_mark", arrowMarkColors[i]);
+				arrowMarkColors[i].name + "_arrow_mark", arrowMarkColors[i]);
 		}
 	}
 }

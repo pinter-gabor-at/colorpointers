@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "/": {
+      "item": "minecraft:arrow"
+    },
+    "C": {
+      "item": "minecraft:lime_carpet"
+    }
+  },
+  "pattern": [
+    " /",
+    "C "
+  ],
+  "result": {
+    "count": 2,
+    "item": "colorpointers:lime_arrow_mark"
+  }
+}

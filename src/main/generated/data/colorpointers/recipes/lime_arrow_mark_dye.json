@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "colorpointers:item_tag"
+    },
+    {
+      "tag": "c:lime_dyes"
+    }
+  ],
+  "result": {
+    "item": "colorpointers:lime_arrow_mark"
+  }
+}
