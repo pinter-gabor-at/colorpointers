@@ -44,7 +44,7 @@ public class ArrowMarkVariant {
 	/**
 	 * Create one variant of ArrowMark
 	 */
-	public ArrowMarkVariant(String name, ArrowMarkColor color) {
+	public ArrowMarkVariant(String name) {
 		// Block
 		block = new ArrowMarkBlock(FabricBlockSettings
 			.create()

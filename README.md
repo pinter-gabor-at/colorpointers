@@ -1,6 +1,6 @@
 # Color Pointers (Fabric)
 
-![Screenshot](./images/screenshot1.png "Arrow Pointers screenshot")
+![Screenshot](./images/screenshot1.png "Color Pointers screenshot")
 
 **Allows you to place high contrast arrow pointers on any full block to aid you on your mining journeys. Never lose your way again.**
 
@@ -13,7 +13,7 @@ Standard MIT license. Feel free to learn from it and incorporate it in your own 
 
 ## Source code
 
-Available on [GitLab](https://gitlab.com/pintergabor/colorpointers.git) or [GitHub](https://github.com/pinter-gabor-at/colorpointers.git)
+Available on [GitLab](https://gitlab.com/pintergabor/colorpointers.git) or on [GitHub](https://github.com/pinter-gabor-at/colorpointers.git).
 
 ## For developers
 

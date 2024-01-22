@@ -9,8 +9,8 @@
       "to": [14.6, 0.001, 15],
       "shade": true,
       "faces": {
-        "up": {"uv": [0, 0, 16, 16], "texture": "#shaft", "tintindex": 0},
-        "down": {"uv": [0, 16, 16, 0], "texture": "#shaft", "tintindex": 0}
+        "up": {"uv": [0, 0, 16, 16], "texture": "#shaft"},
+        "down": {"uv": [0, 16, 16, 0], "texture": "#shaft"}
       }
     },
     {
@@ -19,8 +19,8 @@
       "rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8.4]},
       "shade": true,
       "faces": {
-        "up": {"uv": [0, 0, 16, 16], "texture": "#head", "tintindex": 0},
-        "down": {"uv": [0, 16, 16, 0], "texture": "#head", "tintindex": 0}
+        "up": {"uv": [0, 0, 16, 16], "texture": "#head"},
+        "down": {"uv": [0, 16, 16, 0], "texture": "#head"}
       }
     }
   ]
