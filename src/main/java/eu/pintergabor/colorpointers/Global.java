@@ -9,6 +9,7 @@ public final class Global {
 	public static final String MODID = "colorpointers";
 
 	// This logger is used to write text to the console and the log file.
+	@SuppressWarnings("unused")
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 
 	// Parameters, some of which one day might be player configurable

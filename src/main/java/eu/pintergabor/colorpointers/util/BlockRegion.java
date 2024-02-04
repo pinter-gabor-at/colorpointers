@@ -62,7 +62,6 @@ public class BlockRegion {
 		final double dx = frac(clickLocation.x);
 		final double dy = frac(clickLocation.y);
 		final double dz = frac(clickLocation.z);
-
 		return switch (face) {
 			default -> blockreg3(dz, dx);
 			case DOWN -> blockreg3(1 - dz, dx);
