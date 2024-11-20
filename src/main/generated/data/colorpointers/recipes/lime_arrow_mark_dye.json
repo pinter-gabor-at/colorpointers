@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:lime_dyes"
+      "tag": "c:dyes/lime"
     }
   ],
   "result": {
-    "item": "colorpointers:lime_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:lime_arrow_mark"
   }
 }

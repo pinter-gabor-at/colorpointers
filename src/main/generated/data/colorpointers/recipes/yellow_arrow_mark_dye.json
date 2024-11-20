@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:yellow_dyes"
+      "tag": "c:dyes/yellow"
     }
   ],
   "result": {
-    "item": "colorpointers:yellow_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:yellow_arrow_mark"
   }
 }

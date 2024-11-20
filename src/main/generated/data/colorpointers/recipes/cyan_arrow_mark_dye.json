@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:cyan_dyes"
+      "tag": "c:dyes/cyan"
     }
   ],
   "result": {
-    "item": "colorpointers:cyan_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:cyan_arrow_mark"
   }
 }

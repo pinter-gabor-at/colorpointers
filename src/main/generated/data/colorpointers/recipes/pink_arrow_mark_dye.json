@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:pink_dyes"
+      "tag": "c:dyes/pink"
     }
   ],
   "result": {
-    "item": "colorpointers:pink_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:pink_arrow_mark"
   }
 }
