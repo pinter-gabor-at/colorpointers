@@ -1,7 +1,7 @@
 package eu.pintergabor.colorpointers.main;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.Mod;
-import eu.pintergabor.colorpointers.util.ModIdentifier;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -43,8 +43,8 @@ public final class Main {
 	 */
 	public static void init() {
 		// Tags
-		ARROW_MARK_BLOCK_TAG = TagKey.of(RegistryKeys.BLOCK, new ModIdentifier("block_tag"));
-		ARROW_MARK_ITEM_TAG = TagKey.of(RegistryKeys.ITEM, new ModIdentifier("item_tag"));
+		ARROW_MARK_BLOCK_TAG = TagKey.of(RegistryKeys.BLOCK, Global.ModIdentifier("block_tag"));
+		ARROW_MARK_ITEM_TAG = TagKey.of(RegistryKeys.ITEM, Global.ModIdentifier("item_tag"));
 		// Items and blocks
 		arrowMarkColors = ArrowMarkColor.values();
 		arrowMarks = new ArrowMarkVariant[arrowMarkColors.length];

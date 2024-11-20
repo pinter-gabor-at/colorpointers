@@ -2,8 +2,8 @@ package eu.pintergabor.colorpointers.datagen;
 
 import java.util.Optional;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
-import eu.pintergabor.colorpointers.util.ModIdentifier;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.client.BlockStateModelGenerator;
@@ -110,7 +110,7 @@ public class ModModelGenerator {
 	 * Create center model
 	 */
 	public Identifier createCenterModel(Block block) {
-		Model model = new Model(Optional.of(new ModIdentifier(PARENT)),
+		Model model = new Model(Optional.of(Global.ModIdentifier(PARENT)),
 			Optional.empty(), TextureKey.TEXTURE);
 		return generator.createSubModel(block, "", model, identifier -> new TextureMap()
 			.put(TextureKey.TEXTURE, ModelIds.getBlockModelId(block)));
@@ -120,7 +120,7 @@ public class ModModelGenerator {
 	 * Create shaft+head type models
 	 */
 	public Identifier createShaftHeadModel(Block block, String suffix) {
-		Model model = new Model(Optional.of(new ModIdentifier(PARENT + suffix)),
+		Model model = new Model(Optional.of(Global.ModIdentifier(PARENT + suffix)),
 			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
 		return generator.createSubModel(block, suffix, model, identifier -> new TextureMap()
 			.put(TEXTUREKEY_SHAFT, ModelIds.getBlockSubModelId(block, "_shaft"))
