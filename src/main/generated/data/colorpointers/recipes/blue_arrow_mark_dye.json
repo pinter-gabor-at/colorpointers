@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:blue_dyes"
+      "tag": "c:dyes/blue"
     }
   ],
   "result": {
-    "item": "colorpointers:blue_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:blue_arrow_mark"
   }
 }

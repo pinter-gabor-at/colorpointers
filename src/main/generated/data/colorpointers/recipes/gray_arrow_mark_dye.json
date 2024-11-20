@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:gray_dyes"
+      "tag": "c:dyes/gray"
     }
   ],
   "result": {
-    "item": "colorpointers:gray_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:gray_arrow_mark"
   }
 }

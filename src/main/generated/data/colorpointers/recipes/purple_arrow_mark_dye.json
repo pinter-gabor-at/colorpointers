@@ -6,10 +6,11 @@
       "tag": "colorpointers:item_tag"
     },
     {
-      "tag": "c:purple_dyes"
+      "tag": "c:dyes/purple"
     }
   ],
   "result": {
-    "item": "colorpointers:purple_arrow_mark"
+    "count": 1,
+    "id": "colorpointers:purple_arrow_mark"
   }
 }
