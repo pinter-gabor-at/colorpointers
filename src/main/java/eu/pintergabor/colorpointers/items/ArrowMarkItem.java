@@ -5,6 +5,7 @@ import static eu.pintergabor.colorpointers.util.BlockRegion.getClickedRegion;
 import java.util.Random;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -31,7 +32,6 @@ public class ArrowMarkItem extends BlockItem {
 		final BlockPos pos = context.getBlockPos();
 		final BlockState clickedBlockState = world.getBlockState(pos);
 		final PlayerEntity player = context.getPlayer();
-		final ItemStack stack = context.getStack();
 		final Direction clickedFace = context.getSide();
 		final BlockPos markPosition = pos.offset(clickedFace);
 		if (world.isAir(markPosition)) {
@@ -40,28 +40,41 @@ public class ArrowMarkItem extends BlockItem {
 					.getCollisionShape(world, pos, ShapeContext.of(player)), clickedFace)) {
 				return ActionResult.PASS;
 			}
-
 			if (world.isClient) {
 				return ActionResult.SUCCESS;
 			}
+			return placeBlock(context);
+		}
+		return ActionResult.FAIL;
+	}
 
-			// The new block
-			final int orientation = getClickedRegion(context.getHitPos(), clickedFace);
-			BlockState blockState = getBlock().getDefaultState()
-				.with(ArrowMarkBlock.FACING, clickedFace)
-				.with(ArrowMarkBlock.ORIENTATION, orientation);
-
-			// Place it
-			if (world.setBlockState(markPosition, blockState, Block.NOTIFY_ALL)) {
-				if (player != null &&
-					!player.isCreative()) {
-					stack.decrement(1);
-				}
-				world.playSound(null, markPosition,
-					SoundEvents.BLOCK_MOSS_CARPET_BREAK, SoundCategory.BLOCKS,
-					0.5f, new Random().nextFloat() * 0.2f + 0.8f);
-				return ActionResult.CONSUME;
+	/**
+	 * Create and place the block
+	 * @param context see {@link #useOnBlock(ItemUsageContext)}
+	 * @return the same as {@link #useOnBlock(ItemUsageContext)}
+	 */
+	@NotNull
+	private ActionResult placeBlock(ItemUsageContext context) {
+		final World world = context.getWorld();
+		final BlockPos pos = context.getBlockPos();
+		final PlayerEntity player = context.getPlayer();
+		final ItemStack stack = context.getStack();
+		final Direction clickedFace = context.getSide();
+		final BlockPos markPosition = pos.offset(clickedFace);
+		// The new block
+		final int orientation = getClickedRegion(context.getHitPos(), clickedFace);
+		final BlockState blockState = getBlock().getDefaultState()
+			.with(ArrowMarkBlock.FACING, clickedFace)
+			.with(ArrowMarkBlock.ORIENTATION, orientation);
+		// Place it
+		if (world.setBlockState(markPosition, blockState, Block.NOTIFY_ALL)) {
+			if (player != null && !player.isCreative()) {
+				stack.decrement(1);
 			}
+			world.playSound(null, markPosition,
+				SoundEvents.BLOCK_MOSS_CARPET_BREAK, SoundCategory.BLOCKS,
+				0.5f, new Random().nextFloat() * 0.2f + 0.8f);
+			return ActionResult.CONSUME;
 		}
 		return ActionResult.FAIL;
 	}

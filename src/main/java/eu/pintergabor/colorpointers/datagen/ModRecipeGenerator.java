@@ -30,7 +30,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 				Main.arrowMarks[i].item,
 				Main.arrowMarkColors[i].dyeTagKey);
 		}
-
 	}
 
 	/**

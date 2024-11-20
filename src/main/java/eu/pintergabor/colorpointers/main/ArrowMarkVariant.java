@@ -1,6 +1,5 @@
 package eu.pintergabor.colorpointers.main;
 
-
 import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
@@ -9,8 +8,6 @@ import eu.pintergabor.colorpointers.util.ModIdentifier;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
