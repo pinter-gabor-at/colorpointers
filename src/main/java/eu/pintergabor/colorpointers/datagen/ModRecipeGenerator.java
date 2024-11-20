@@ -1,5 +1,6 @@
 package eu.pintergabor.colorpointers.datagen;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.Main;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -12,7 +13,6 @@ import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -49,7 +49,7 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .input('C', carpet)
                 .criterion(hasItem(Items.ARROW),
                         conditionsFromItem(Items.ARROW))
-                .offerTo(exporter, new Identifier(getRecipeName(arrowItem)));
+                .offerTo(exporter, Global.ModIdentifier(getRecipeName(arrowItem)));
     }
 
     /**
@@ -65,6 +65,6 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
                 .input(dye)
                 .criterion(hasItem(Items.ARROW),
                         conditionsFromItem(Items.ARROW))
-                .offerTo(exporter, new Identifier(getRecipeName(arrowItem) + "_dye"));
+                .offerTo(exporter, Global.ModIdentifier(getRecipeName(arrowItem) + "_dye"));
     }
 }

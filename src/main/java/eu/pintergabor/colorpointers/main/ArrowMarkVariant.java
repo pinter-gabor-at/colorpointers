@@ -1,10 +1,10 @@
 package eu.pintergabor.colorpointers.main;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
-import eu.pintergabor.colorpointers.util.ModIdentifier;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.Item;
@@ -41,21 +41,21 @@ public class ArrowMarkVariant {
      */
     public ArrowMarkVariant(String name) {
         // Block
-        block = new ArrowMarkBlock(FabricBlockSettings
+        block = new ArrowMarkBlock(Block.Settings
                 .create()
                 .replaceable()
                 .noCollision()
                 .nonOpaque()
                 .sounds(BlockSoundGroup.MOSS_CARPET)
-                .luminance(arrowMarkBlockLumi)
+                .luminance(value -> arrowMarkBlockLumi)
                 .postProcess(ArrowMarkVariant::always)
                 .emissiveLighting(ArrowMarkVariant::always)
                 .pistonBehavior(PistonBehavior.DESTROY)
         );
-        Registry.register(Registries.BLOCK, new ModIdentifier(name), block);
+        Registry.register(Registries.BLOCK, Global.ModIdentifier(name), block);
         // Item
         item = new ArrowMarkItem(block, new Item.Settings());
-        Registry.register(Registries.ITEM, new ModIdentifier(name), item);
+        Registry.register(Registries.ITEM, Global.ModIdentifier(name), item);
         // Item groups
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(
                 entries -> {

@@ -1,5 +1,6 @@
 package eu.pintergabor.colorpointers;
 
+import net.minecraft.util.Identifier;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,4 +22,12 @@ public final class Global {
 
 	// ArrowMarkBlock luminance
 	public static final int arrowMarkBlockLumi = 1;
+
+	/**
+	 * Create a mod specific identifier
+	 * @param path Name, as in lang/*.json files without "*.modid." prefix
+	 */
+	public static Identifier ModIdentifier(String path) {
+		return Identifier.of(MODID, path);
+	}
 }
