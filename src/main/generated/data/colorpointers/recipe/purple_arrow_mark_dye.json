@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "colorpointers:item_tag"
-    },
-    {
-      "tag": "c:dyes/purple"
-    }
+    "#colorpointers:item_tag",
+    "#c:dyes/purple"
   ],
   "result": {
     "count": 1,

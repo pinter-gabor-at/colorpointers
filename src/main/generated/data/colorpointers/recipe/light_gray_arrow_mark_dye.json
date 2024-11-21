@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "tag": "colorpointers:item_tag"
-    },
-    {
-      "tag": "c:dyes/light_gray"
-    }
+    "#colorpointers:item_tag",
+    "#c:dyes/light_gray"
   ],
   "result": {
     "count": 1,
