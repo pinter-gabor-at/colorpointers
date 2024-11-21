@@ -6,11 +6,12 @@ import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -41,26 +42,27 @@ public class ArrowMarkVariant {
      */
     public ArrowMarkVariant(String name) {
         // Block
-        block = new ArrowMarkBlock(Block.Settings
-                .create()
-                .replaceable()
-                .noCollision()
-                .nonOpaque()
-                .sounds(BlockSoundGroup.MOSS_CARPET)
-                .luminance(value -> arrowMarkBlockLumi)
-                .postProcess(ArrowMarkVariant::always)
-                .emissiveLighting(ArrowMarkVariant::always)
-                .pistonBehavior(PistonBehavior.DESTROY)
+        block = (ArrowMarkBlock) Blocks.register(
+                RegistryKey.of(RegistryKeys.BLOCK, Global.ModIdentifier(name)),
+                ArrowMarkBlock::new,
+                Block.Settings
+                        .create()
+                        .replaceable()
+                        .noCollision()
+                        .nonOpaque()
+                        .sounds(BlockSoundGroup.MOSS_CARPET)
+                        .luminance(value -> arrowMarkBlockLumi)
+                        .postProcess(ArrowMarkVariant::always)
+                        .emissiveLighting(ArrowMarkVariant::always)
+                        .pistonBehavior(PistonBehavior.DESTROY)
         );
-        Registry.register(Registries.BLOCK, Global.ModIdentifier(name), block);
         // Item
-        item = new ArrowMarkItem(block, new Item.Settings());
-        Registry.register(Registries.ITEM, Global.ModIdentifier(name), item);
+        item = (ArrowMarkItem) Items.register(
+                block,
+                ArrowMarkItem::new);
         // Item groups
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(
-                entries -> {
-                    entries.add(item);
-                });
+                entries -> entries.add(item));
     }
 
     private static boolean always(BlockState blockState, BlockView blockView, BlockPos blockPos) {

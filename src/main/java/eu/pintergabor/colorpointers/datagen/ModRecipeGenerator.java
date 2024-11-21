@@ -3,27 +3,21 @@ package eu.pintergabor.colorpointers.datagen;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.Main;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.server.recipe.RecipeExporter;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.RecipeGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 
-import java.util.concurrent.CompletableFuture;
-
-public class ModRecipeGenerator extends FabricRecipeProvider {
-    public ModRecipeGenerator(
-            FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
-        super(output, registriesFuture);
+public class ModRecipeGenerator extends RecipeGenerator {
+    protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
+        super(registries, exporter);
     }
 
     @Override
-    public void generate(RecipeExporter exporter) {
+    public void generate() {
         for (int i = 0; i < Main.arrowMarks.length; i++) {
             generateArrowMarkItemRecipe(exporter,
                     Main.arrowMarks[i].item,
@@ -42,14 +36,14 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
      */
     private void generateArrowMarkItemRecipe(
             RecipeExporter exporter, Item arrowItem, Item carpet) {
-        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, arrowItem, 2)
+        createShaped(RecipeCategory.MISC, arrowItem, 2)
                 .pattern(" /")
                 .pattern("C ")
                 .input('/', Items.ARROW)
                 .input('C', carpet)
                 .criterion(hasItem(Items.ARROW),
                         conditionsFromItem(Items.ARROW))
-                .offerTo(exporter, Global.ModIdentifier(getRecipeName(arrowItem)));
+                .offerTo(exporter);
     }
 
     /**
@@ -60,11 +54,11 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
      */
     private void paintArrowMarkItemRecipe(
             RecipeExporter exporter, Item arrowItem, TagKey<Item> dye) {
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, arrowItem)
+        createShapeless(RecipeCategory.MISC, arrowItem)
                 .input(Main.ARROW_MARK_ITEM_TAG)
                 .input(dye)
                 .criterion(hasItem(Items.ARROW),
                         conditionsFromItem(Items.ARROW))
-                .offerTo(exporter, Global.ModIdentifier(getRecipeName(arrowItem) + "_dye"));
+                .offerTo(exporter, Global.MODID + ":" + getRecipeName(arrowItem) + "_dye");
     }
 }

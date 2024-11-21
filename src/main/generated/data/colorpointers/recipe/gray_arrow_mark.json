@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "/": {
-      "item": "minecraft:arrow"
-    },
-    "C": {
-      "item": "minecraft:gray_carpet"
-    }
+    "/": "minecraft:arrow",
+    "C": "minecraft:gray_carpet"
   },
   "pattern": [
     " /",
