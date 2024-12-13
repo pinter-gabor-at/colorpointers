@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "colorpointers:item/orange_arrow_mark"
-  }
-}

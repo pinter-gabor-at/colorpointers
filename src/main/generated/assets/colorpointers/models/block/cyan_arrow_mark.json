@@ -1,6 +1,0 @@
-{
-  "parent": "colorpointers:block/template_arrow_mark",
-  "textures": {
-    "texture": "colorpointers:block/cyan_arrow_mark"
-  }
-}
