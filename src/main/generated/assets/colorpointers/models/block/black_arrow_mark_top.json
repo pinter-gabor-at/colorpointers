@@ -1,0 +1,7 @@
+{
+  "parent": "colorpointers:block/template_arrow_mark_top",
+  "textures": {
+    "head": "colorpointers:block/black_arrow_mark_head",
+    "shaft": "colorpointers:block/black_arrow_mark_shaft"
+  }
+}

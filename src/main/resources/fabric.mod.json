@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "colorpointers",
+  "id": "${mod_id}",
   "version": "${version}",
   "name": "Color Pointers",
   "description": "Use arrows to mark your way.",
@@ -26,12 +26,13 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.16.9",
-    "minecraft": "~1.21.4",
     "java": ">=21",
-    "fabric-api": "*"
+    "minecraft": "${minecraft_version}",
+    "fabricloader": "${loader_version}",
+    "fabric-api": "${fabric_version}"
   },
   "suggests": {
-    "ArrowMarks": "*"
+    "ArrowMarks": "*",
+    "IronSigns": "*"
   }
 }

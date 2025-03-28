@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#colorpointers:item_tag",
+    "#c:dyes/green"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colorpointers:green_arrow_mark"
+  }
+}
