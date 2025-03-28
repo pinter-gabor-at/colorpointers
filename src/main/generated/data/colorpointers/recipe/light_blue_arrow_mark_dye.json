@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#colorpointers:item_tag",
+    "#c:dyes/light_blue"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colorpointers:light_blue_arrow_mark"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#colorpointers:item_tag",
+    "#c:dyes/orange"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colorpointers:orange_arrow_mark"
+  }
+}
