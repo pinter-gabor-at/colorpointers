@@ -2,8 +2,6 @@ package eu.pintergabor.colorpointers.main;
 
 import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
 
-import javax.swing.text.html.BlockView;
-
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
@@ -18,10 +16,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.PushReaction;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
-import net.minecraft.world.level.material.PushReaction;
 
 /**
  * One ArrowMark variant.

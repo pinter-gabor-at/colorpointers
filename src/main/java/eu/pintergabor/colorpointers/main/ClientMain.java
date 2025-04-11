@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 
 
-public class ClientMain {
+public final class ClientMain {
 
 	/**
 	 * ArrowMarks are transparent.
