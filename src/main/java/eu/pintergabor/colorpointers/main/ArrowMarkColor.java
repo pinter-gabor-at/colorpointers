@@ -1,13 +1,16 @@
 package eu.pintergabor.colorpointers.main;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.TagKey;
+import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 
+
 /**
- * Color names, primary colors, dye item tags and carpets
+ * Color names, primary colors, dye item tags and carpets.
  */
 public enum ArrowMarkColor {
 	WHITE("white", 0xF9FFFE, ConventionalItemTags.WHITE_DYES, Items.WHITE_CARPET),
@@ -28,31 +31,31 @@ public enum ArrowMarkColor {
 	BLACK("black", 0x1D1D21, ConventionalItemTags.BLACK_DYES, Items.BLACK_CARPET);
 
 	/**
-	 * Name of the color
+	 * Name of the color.
 	 */
 	public final String name;
 
 	/**
-	 * Primary color of the corresponding items and blocks
+	 * Primary color of the corresponding items and blocks.
 	 */
 	@SuppressWarnings("unused")
 	public final int color;
 
 	/**
-	 * Dye used in the crafting recipes of the corresponding items
+	 * Dye used in the crafting recipes of the corresponding items.
 	 */
 	public final TagKey<Item> dyeTagKey;
 
 	/**
-	 * Carpet used in the crafting recipes of the corresponding items
+	 * Carpet used in the crafting recipes of the corresponding items.
 	 */
 	public final Item carpet;
 
 	/**
-	 * @param name {@link #name}
-	 * @param color {@link #color}
+	 * @param name      {@link #name}
+	 * @param color     {@link #color}
 	 * @param dyetagkey {@link #dyeTagKey}
-	 * @param carpet {@link #carpet}
+	 * @param carpet    {@link #carpet}
 	 */
 	ArrowMarkColor(String name, int color, TagKey<Item> dyetagkey, Item carpet) {
 		this.name = name;
@@ -62,6 +65,7 @@ public enum ArrowMarkColor {
 	}
 
 	@SuppressWarnings("unused")
+	@NotNull
 	public String asString() {
 		return this.name;
 	}

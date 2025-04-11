@@ -3,62 +3,62 @@ package eu.pintergabor.colorpointers.datagen;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.Main;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.TagKey;
 
-public class ModRecipeGenerator extends RecipeGenerator {
-    protected ModRecipeGenerator(RegistryWrapper.WrapperLookup registries, RecipeExporter exporter) {
-        super(registries, exporter);
-    }
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
-    @Override
-    public void generate() {
-        for (int i = 0; i < Main.arrowMarks.length; i++) {
-            generateArrowMarkItemRecipe(exporter,
-                    Main.arrowMarks[i].item,
-                    Main.arrowMarkColors[i].carpet);
-            paintArrowMarkItemRecipe(exporter,
-                    Main.arrowMarks[i].item,
-                    Main.arrowMarkColors[i].dyeTagKey);
-        }
-    }
 
-    /**
-     * Generate primary {@link ArrowMarkItem} recipes
-     *
-     * @param arrowItem The recipe for this item
-     * @param carpet    Same color carpet item
-     */
-    private void generateArrowMarkItemRecipe(
-            RecipeExporter exporter, Item arrowItem, Item carpet) {
-        createShaped(RecipeCategory.MISC, arrowItem, 2)
-                .pattern(" /")
-                .pattern("C ")
-                .input('/', Items.ARROW)
-                .input('C', carpet)
-                .criterion(hasItem(Items.ARROW),
-                        conditionsFromItem(Items.ARROW))
-                .offerTo(exporter);
-    }
+public class ModRecipeGenerator extends RecipeProvider {
 
-    /**
-     * Generate {@link ArrowMarkItem} repaint recipes
-     *
-     * @param arrowItem The recipe for this item
-     * @param dye       Same color DyeTag
-     */
-    private void paintArrowMarkItemRecipe(
-            RecipeExporter exporter, Item arrowItem, TagKey<Item> dye) {
-        createShapeless(RecipeCategory.MISC, arrowItem)
-                .input(Main.ARROW_MARK_ITEM_TAG)
-                .input(dye)
-                .criterion(hasItem(Items.ARROW),
-                        conditionsFromItem(Items.ARROW))
-                .offerTo(exporter, Global.MODID + ":" + getRecipeName(arrowItem) + "_dye");
-    }
+	protected ModRecipeGenerator(
+		HolderLookup.Provider registries, RecipeOutput output) {
+		super(registries, output);
+	}
+
+	/**
+	 * Generate primary {@link ArrowMarkItem} recipes.
+	 *
+	 * @param arrowItem The recipe for this item.
+	 * @param carpet    Same color carpet item.
+	 */
+	private void generateArrowMarkItemRecipe(Item arrowItem, Item carpet) {
+		shaped(RecipeCategory.MISC, arrowItem, 2)
+			.pattern(" /")
+			.pattern("C ")
+			.define('/', Items.ARROW)
+			.define('C', carpet)
+			.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
+			.save(output);
+	}
+
+	/**
+	 * Generate {@link ArrowMarkItem} repaint recipes.
+	 *
+	 * @param arrowItem The recipe for this item.
+	 * @param dye       Same color DyeTag.
+	 */
+	private void paintArrowMarkItemRecipe(Item arrowItem, TagKey<Item> dye) {
+		shapeless(RecipeCategory.MISC, arrowItem)
+			.requires(Main.ARROW_MARK_ITEM_TAG)
+			.requires(dye)
+			.unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
+			.save(output, Global.modName(getSimpleRecipeName(arrowItem) + "_dye"));
+	}
+
+	@Override
+	public void buildRecipes() {
+		for (int i = 0; i < Main.arrowMarks.length; i++) {
+			generateArrowMarkItemRecipe(
+				Main.arrowMarks[i].item,
+				Main.arrowMarkColors[i].carpet);
+			paintArrowMarkItemRecipe(
+				Main.arrowMarks[i].item,
+				Main.arrowMarkColors[i].dyeTagKey);
+		}
+	}
 }
