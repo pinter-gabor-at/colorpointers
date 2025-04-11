@@ -6,7 +6,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
 
 
-public class BlockRegion {
+public final class BlockRegion {
+
+	private BlockRegion() {
+		// Static class.
+	}
 
 	@SuppressWarnings("unused")
 	public static final int TOPLEFT = 0;
@@ -60,7 +64,10 @@ public class BlockRegion {
 
 	/**
 	 * Calculates which region of the block was clicked.
-	 *
+	 * <pre>
+	 * 012
+	 * 345
+	 * 678
 	 * @return region number (top-left = 0 ... bottom-right = 8)
 	 */
 	public static int getClickedRegion(@NotNull Vec3 clickLocation, Direction face) {
