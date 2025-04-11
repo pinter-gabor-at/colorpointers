@@ -12,41 +12,41 @@ import net.minecraft.world.level.block.Block;
 public final class Main {
 
 	/**
-	 * All {@link ArrowMarkColor} enum values in an array
+	 * All {@link ArrowMarkColor} enum values in an array.
 	 * <p>
 	 * Read-only outside its class.
 	 */
 	public static ArrowMarkColor[] arrowMarkColors;
 
 	/**
-	 * Colored Iron Signs
+	 * All arrow mark variants.
 	 * <p>
 	 * Read-only outside its class.
 	 */
 	public static ArrowMarkVariant[] arrowMarks;
 
 	/**
-	 * All sign and hanging sign blocks
+	 * A tag for all arrow mark variants.
 	 * <p>
 	 * Used to set up mineable rules. Read-only outside its class.
 	 */
 	public static TagKey<Block> ARROW_MARK_BLOCK_TAG;
 
 	/**
-	 * All sign items
+	 * A tag for all arrow mark items.
 	 * <p>
 	 * Used in coloring recipes. Read-only outside its class.
 	 */
 	public static TagKey<Item> ARROW_MARK_ITEM_TAG;
 
 	/**
-	 * Called from {@link Mod#onInitialize()}
+	 * Called from {@link Mod#onInitialize()}.
 	 */
 	public static void init() {
-		// Tags
+		// Tags.
 		ARROW_MARK_BLOCK_TAG = TagKey.create(Registries.BLOCK, Global.modId("block_tag"));
 		ARROW_MARK_ITEM_TAG = TagKey.create(Registries.ITEM, Global.modId("item_tag"));
-		// Items and blocks
+		// Items and blocks.
 		arrowMarkColors = ArrowMarkColor.values();
 		arrowMarks = new ArrowMarkVariant[arrowMarkColors.length];
 		for (int i = 0; i < arrowMarkColors.length; i++) {

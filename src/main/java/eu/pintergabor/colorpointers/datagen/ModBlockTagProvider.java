@@ -4,11 +4,10 @@ import java.util.concurrent.CompletableFuture;
 
 import eu.pintergabor.colorpointers.main.Main;
 
+import net.minecraft.core.HolderLookup;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-
-import net.minecraft.core.HolderLookup;
 
 
 public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {

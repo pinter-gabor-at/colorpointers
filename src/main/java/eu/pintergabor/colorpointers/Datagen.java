@@ -4,7 +4,7 @@ import eu.pintergabor.colorpointers.datagen.ModBlockLootTableGenerator;
 import eu.pintergabor.colorpointers.datagen.ModBlockTagProvider;
 import eu.pintergabor.colorpointers.datagen.ModItemTagProvider;
 import eu.pintergabor.colorpointers.datagen.ModModelProvider;
-import eu.pintergabor.colorpointers.datagen.ModRecipeProvider;
+import eu.pintergabor.colorpointers.datagen.ModRecipeRunner;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -16,7 +16,7 @@ public class Datagen implements DataGeneratorEntrypoint {
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModModelProvider::new);
-		pack.addProvider(ModRecipeProvider::new);
+		pack.addProvider(ModRecipeRunner::new);
 		pack.addProvider(ModBlockLootTableGenerator::new);
 	}
 }

@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
+
 public class ArrowMarkItem extends BlockItem {
 
 	public ArrowMarkItem(Block block, Properties props) {
@@ -29,11 +30,6 @@ public class ArrowMarkItem extends BlockItem {
 	@Override
 	@NotNull
 	public InteractionResult useOn(UseOnContext context) {
-		return super.useOn(context);
-	}
-
-	@Override
-	public InteractionResult useOnBlock(UseOnContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final BlockState clickedBlockState = level.getBlockState(pos);
@@ -57,8 +53,8 @@ public class ArrowMarkItem extends BlockItem {
 	/**
 	 * Create and place the block.
 	 *
-	 * @param context see {@link #useOnBlock(UseOnContext)}
-	 * @return the same as {@link #useOnBlock(UseOnContext)}
+	 * @param context see {@link #useOn(UseOnContext)}.
+	 * @return the same as {@link #useOn(UseOnContext)}.
 	 */
 	@NotNull
 	private InteractionResult placeBlock(UseOnContext context) {

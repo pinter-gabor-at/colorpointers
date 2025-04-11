@@ -22,7 +22,7 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
 	}
 
 	/**
-	 * Every {@link ArrowMarkBlock} drops the corresponding {@link ArrowMarkItem}
+	 * Every {@link ArrowMarkBlock} drops the corresponding {@link ArrowMarkItem}.
 	 */
 	@Override
 	public void generate() {

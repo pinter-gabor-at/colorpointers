@@ -33,9 +33,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  * An ArrowMarkBlock is a thin, flat block that has 6 directions and 9 orientations.
  */
 public class ArrowMarkBlock extends Block {
-	public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
-	public static final IntegerProperty ORIENTATION = IntegerProperty.create("orientation", 0, 8);
-
+	// Properties.
+	public static final EnumProperty<Direction> FACING =
+		BlockStateProperties.FACING;
+	public static final IntegerProperty ORIENTATION =
+		IntegerProperty.create("orientation", 0, 8);
+	// Shapes.
 	private static final VoxelShape DOWN_AABB = Block.box(
 		margin, 16D - thickness, margin, 16D - margin, 16D, 16D - margin);
 	private static final VoxelShape UP_AABB = Block.box(
@@ -57,13 +60,15 @@ public class ArrowMarkBlock extends Block {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(
+		StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING, ORIENTATION);
 		super.createBlockStateDefinition(builder);
 	}
 
 	@Override
-	protected void spawnDestroyParticles(Level level, Player player, BlockPos pos, BlockState state) {
+	protected void spawnDestroyParticles(
+		Level level, Player player, BlockPos pos, BlockState state) {
 		if (!level.isClientSide) {
 			level.playSound(null, pos,
 				SoundEvents.MOSS_CARPET_BREAK, SoundSource.BLOCKS,
@@ -79,12 +84,12 @@ public class ArrowMarkBlock extends Block {
 	public VoxelShape getShape(
 		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return switch (state.getValue(FACING)) {
+			case UP -> UP_AABB;
 			case DOWN -> DOWN_AABB;
 			case NORTH -> NORTH_AABB;
 			case SOUTH -> SOUTH_AABB;
 			case EAST -> EAST_AABB;
 			case WEST -> WEST_AABB;
-			default -> UP_AABB;
 		};
 	}
 
