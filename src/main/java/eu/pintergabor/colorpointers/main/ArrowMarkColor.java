@@ -1,10 +1,11 @@
 package eu.pintergabor.colorpointers.main;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
+
 
 /**
  * Color names, primary colors, dye item tags and carpets
@@ -49,10 +50,10 @@ public enum ArrowMarkColor {
 	public final Item carpet;
 
 	/**
-	 * @param name {@link #name}
-	 * @param color {@link #color}
+	 * @param name      {@link #name}
+	 * @param color     {@link #color}
 	 * @param dyetagkey {@link #dyeTagKey}
-	 * @param carpet {@link #carpet}
+	 * @param carpet    {@link #carpet}
 	 */
 	ArrowMarkColor(String name, int color, TagKey<Item> dyetagkey, Item carpet) {
 		this.name = name;

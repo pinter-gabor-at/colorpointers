@@ -1,9 +1,11 @@
 package eu.pintergabor.colorpointers.util;
 
+import net.minecraft.core.Direction;
+
+import net.minecraft.world.phys.Vec3;
+
 import org.jetbrains.annotations.NotNull;
 
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 
 public class BlockRegion {
 
@@ -58,7 +60,7 @@ public class BlockRegion {
 	 * Calculates which region of the block was clicked
 	 * @return region number (top-left = 0 … bottom-right = 8)
 	 */
-	public static int getClickedRegion(@NotNull Vec3d clickLocation, Direction face) {
+	public static int getClickedRegion(@NotNull Vec3 clickLocation, Direction face) {
 		final double dx = frac(clickLocation.x);
 		final double dy = frac(clickLocation.y);
 		final double dz = frac(clickLocation.z);

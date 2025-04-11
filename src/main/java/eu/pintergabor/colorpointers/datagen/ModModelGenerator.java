@@ -5,26 +5,33 @@ import java.util.Optional;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.data.BlockStateModelGenerator;
-import net.minecraft.client.data.BlockStateVariantMap;
-import net.minecraft.client.data.Model;
-import net.minecraft.client.data.ModelIds;
-import net.minecraft.client.data.TextureKey;
-import net.minecraft.client.data.TextureMap;
-import net.minecraft.client.data.VariantsBlockModelDefinitionCreator;
-import net.minecraft.client.render.model.json.WeightedVariant;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import static net.minecraft.client.data.models.BlockModelGenerators.*;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 
-import static net.minecraft.client.data.BlockStateModelGenerator.*;
+//import net.minecraft.block.Block;
+//import net.minecraft.client.data.BlockModelGenerators;
+//import net.minecraft.client.data.PropertyDispatch;
+//import net.minecraft.client.data.Model;
+//import net.minecraft.client.data.ModelIds;
+//import net.minecraft.client.data.TextureKey;
+//import net.minecraft.client.data.TextureMap;
+//import net.minecraft.client.data.VariantsBlockModelDefinitionCreator;
+//import net.minecraft.client.render.model.json.WeightedVariant;
+//import net.minecraft.state.property.Properties;
+//import net.minecraft.util.ResourceLocation;
+//import net.minecraft.util.math.Direction;
+//
+//import static net.minecraft.client.data.BlockModelGenerators.*;
 
 
 public class ModModelGenerator {
-	private final BlockStateModelGenerator generator;
+	private final BlockModelGenerators generator;
 
-	public ModModelGenerator(BlockStateModelGenerator generator) {
+	public ModModelGenerator(BlockModelGenerators generator) {
 		this.generator = generator;
 	}
 
@@ -35,25 +42,25 @@ public class ModModelGenerator {
 	 * @param modelId block model *.json file name
 	 */
 	public static void registerFlatNormal(
-		BlockStateVariantMap.DoubleProperty<WeightedVariant, Direction, Integer> map,
-		int orientation, Identifier modelId) {
+		PropertyDispatch.DoubleProperty<WeightedVariant, Direction, Integer> map,
+		int orientation, ResourceLocation modelId) {
 		map.register(Direction.DOWN, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_180));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_180));
 		map.register(Direction.UP, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId));
+			BlockModelGenerators.createWeightedVariant(modelId));
 		map.register(Direction.NORTH, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_270.then(ROTATE_Y_180)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_270.then(Y_ROT_180)));
 		map.register(Direction.SOUTH, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_270));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_270));
 		map.register(Direction.WEST, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_270.then(ROTATE_Y_90)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_270.then(Y_ROT_90)));
 		map.register(Direction.EAST, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_270.then(ROTATE_Y_270)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_270.then(Y_ROT_270)));
 	}
 
 	/**
@@ -65,26 +72,26 @@ public class ModModelGenerator {
 	 * @param modelId block model *.json file name
 	 */
 	public static void registerFlatFlipped(
-		BlockStateVariantMap.DoubleProperty<WeightedVariant, Direction, Integer> map,
-		int orientation, Identifier modelId) {
+		PropertyDispatch.DoubleProperty<WeightedVariant, Direction, Integer> map,
+		int orientation, ResourceLocation modelId) {
 		map.register(Direction.DOWN, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_180.then(ROTATE_Y_180)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_180.then(Y_ROT_180)));
 		map.register(Direction.UP, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_Y_180));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(Y_ROT_180));
 		map.register(Direction.NORTH, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_90));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_90));
 		map.register(Direction.SOUTH, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_90.then(ROTATE_Y_180)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_90.then(Y_ROT_180)));
 		map.register(Direction.WEST, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_90.then(ROTATE_Y_270)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_90.then(Y_ROT_270)));
 		map.register(Direction.EAST, orientation,
-			BlockStateModelGenerator.createWeightedVariant(modelId)
-				.apply(ROTATE_X_90.then(ROTATE_Y_90)));
+			BlockModelGenerators.createWeightedVariant(modelId)
+				.apply(X_ROT_90.then(Y_ROT_90)));
 	}
 
 	public static final TextureKey TEXTUREKEY_SHAFT = TextureKey.of("shaft");
@@ -94,8 +101,8 @@ public class ModModelGenerator {
 	/**
 	 * Create center model
 	 */
-	public Identifier createCenterModel(Block block) {
-		Model model = new Model(Optional.of(Global.ModIdentifier(PARENT)),
+	public ResourceLocation createCenterModel(Block block) {
+		Model model = new Model(Optional.of(Global.ModResourceLocation(PARENT)),
 			Optional.empty(), TextureKey.TEXTURE);
 		return generator.createSubModel(block, "", model, identifier -> new TextureMap()
 			.put(TextureKey.TEXTURE, ModelIds.getBlockModelId(block)));
@@ -104,8 +111,8 @@ public class ModModelGenerator {
 	/**
 	 * Create shaft+head type models
 	 */
-	public Identifier createShaftHeadModel(Block block, String suffix) {
-		Model model = new Model(Optional.of(Global.ModIdentifier(PARENT + suffix)),
+	public ResourceLocation createShaftHeadModel(Block block, String suffix) {
+		Model model = new Model(Optional.of(Global.ModResourceLocation(PARENT + suffix)),
 			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
 		return generator.createSubModel(block, suffix, model, identifier -> new TextureMap()
 			.put(TEXTUREKEY_SHAFT, ModelIds.getBlockSubModelId(block, "_shaft"))
@@ -115,15 +122,15 @@ public class ModModelGenerator {
 	/**
 	 * Create models and blockstates for 6 directions and 9 orientations
 	 */
-	public BlockStateVariantMap<WeightedVariant> createFlat9Direction(Block block) {
+	public PropertyDispatch<WeightedVariant> createFlat9Direction(Block block) {
 		// Models
-		Identifier center = createCenterModel(block);
-		Identifier topleft = createShaftHeadModel(block, "_top_left");
-		Identifier top = createShaftHeadModel(block, "_top");
-		Identifier topright = createShaftHeadModel(block, "_top_right");
-		Identifier right = createShaftHeadModel(block, "_right");
+		ResourceLocation center = createCenterModel(block);
+		ResourceLocation topleft = createShaftHeadModel(block, "_top_left");
+		ResourceLocation top = createShaftHeadModel(block, "_top");
+		ResourceLocation topright = createShaftHeadModel(block, "_top_right");
+		ResourceLocation right = createShaftHeadModel(block, "_right");
 		// BlockStates
-		var map = BlockStateVariantMap
+		var map = PropertyDispatch
 			.models(Properties.FACING, ArrowMarkBlock.ORIENTATION);
 		registerFlatNormal(map, 0, topleft);
 		registerFlatNormal(map, 1, top);
