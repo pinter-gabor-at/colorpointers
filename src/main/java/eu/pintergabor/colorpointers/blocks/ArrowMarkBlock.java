@@ -68,7 +68,8 @@ public class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void spawnDestroyParticles(
-		Level level, Player player, BlockPos pos, BlockState state) {
+		Level level, @NotNull Player player,
+		@NotNull BlockPos pos, @NotNull BlockState state) {
 		if (!level.isClientSide) {
 			level.playSound(null, pos,
 				SoundEvents.MOSS_CARPET_BREAK, SoundSource.BLOCKS,
@@ -82,7 +83,8 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getShape(
-		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		BlockState state, @NotNull BlockGetter level,
+		@NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return switch (state.getValue(FACING)) {
 			case UP -> UP_AABB;
 			case DOWN -> DOWN_AABB;
@@ -99,7 +101,8 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(
-		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		@NotNull BlockState state, @NotNull BlockGetter level,
+		@NotNull BlockPos pos, @NotNull CollisionContext context) {
 		return Shapes.empty();
 	}
 
@@ -107,7 +110,8 @@ public class ArrowMarkBlock extends Block {
 	 * Unconditional can-replace.
 	 */
 	@Override
-	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+	public boolean canBeReplaced(
+		@NotNull BlockState state, @NotNull BlockPlaceContext context) {
 		return true;
 	}
 
@@ -127,9 +131,9 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	protected BlockState updateShape(
-		BlockState state, LevelReader level, ScheduledTickAccess tickView,
-		BlockPos pos, Direction direction, BlockPos neighborPos,
-		BlockState neighborState, RandomSource random) {
+		BlockState state, @NotNull LevelReader level, @NotNull ScheduledTickAccess tickView,
+		BlockPos pos, @NotNull Direction direction, BlockPos neighborPos,
+		@NotNull BlockState neighborState, @NotNull RandomSource random) {
 		BlockPos supportPos = pos.relative(state.getValue(FACING).getOpposite());
 		boolean support = neighborPos.equals(supportPos);
 		if (support) {

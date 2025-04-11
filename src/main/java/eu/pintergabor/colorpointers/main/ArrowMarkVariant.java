@@ -2,26 +2,19 @@ package eu.pintergabor.colorpointers.main;
 
 import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
 
-import javax.swing.text.html.BlockView;
-
-import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredItem;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-
 import net.minecraft.world.level.material.PushReaction;
+
 
 /**
  * One ArrowMark variant.
@@ -33,14 +26,14 @@ public class ArrowMarkVariant {
 	 * <p>
 	 * Read only outside class.
 	 */
-	public ArrowMarkBlock block;
+	public DeferredBlock<Block> block;
 
 	/**
 	 * ArrowMark item.
 	 * <p>
 	 * Read only outside class.
 	 */
-	public ArrowMarkItem item;
+	public DeferredItem<Item> item;
 
 	private static boolean always(BlockState blockState, BlockGetter blockView, BlockPos blockPos) {
 		return true;
@@ -51,8 +44,8 @@ public class ArrowMarkVariant {
 	 */
 	public ArrowMarkVariant(String name) {
 		// Block.
-		block = (ArrowMarkBlock) Blocks.register(
-			ResourceKey.create(Registries.BLOCK, Global.modId(name)),
+		block = Main.BLOCKS.registerBlock(
+			name,
 			ArrowMarkBlock::new,
 			Block.Properties
 				.of()
@@ -66,11 +59,8 @@ public class ArrowMarkVariant {
 				.pushReaction(PushReaction.DESTROY)
 		);
 		// Item.
-		item = (ArrowMarkItem) Items.registerBlock(
-			block,
-			ArrowMarkItem::new);
-		// Item groups.
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(
-			entries -> entries.accept(item));
+		item = Main.ITEMS.registerItem(
+			name, props ->
+				new ArrowMarkItem(block.get(), props));
 	}
 }

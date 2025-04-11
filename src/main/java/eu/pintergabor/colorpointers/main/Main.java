@@ -1,7 +1,9 @@
 package eu.pintergabor.colorpointers.main;
 
 import eu.pintergabor.colorpointers.Global;
-import eu.pintergabor.colorpointers.Mod;
+import eu.pintergabor.colorpointers.ModCommon;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
@@ -10,6 +12,10 @@ import net.minecraft.world.level.block.Block;
 
 
 public final class Main {
+	public static final DeferredRegister.Items ITEMS =
+		DeferredRegister.createItems(Global.MODID);
+	public static final DeferredRegister.Blocks BLOCKS =
+		DeferredRegister.createBlocks(Global.MODID);
 
 	/**
 	 * All {@link ArrowMarkColor} enum values in an array.
@@ -40,12 +46,19 @@ public final class Main {
 	public static TagKey<Item> ARROW_MARK_ITEM_TAG;
 
 	/**
-	 * Called from {@link Mod#onInitialize()}.
+	 * Initialize tags.
 	 */
-	public static void init() {
-		// Tags.
+	private static void initTags() {
 		ARROW_MARK_BLOCK_TAG = TagKey.create(Registries.BLOCK, Global.modId("block_tag"));
 		ARROW_MARK_ITEM_TAG = TagKey.create(Registries.ITEM, Global.modId("item_tag"));
+	}
+
+	/**
+	 * Called from {@link ModCommon}.
+	 */
+	public static void init(IEventBus modEventBus) {
+		// Tags.
+		initTags();
 		// Items and blocks.
 		arrowMarkColors = ArrowMarkColor.values();
 		arrowMarks = new ArrowMarkVariant[arrowMarkColors.length];
@@ -53,5 +66,7 @@ public final class Main {
 			arrowMarks[i] = new ArrowMarkVariant(
 				arrowMarkColors[i].name + "_arrow_mark");
 		}
+		BLOCKS.register(modEventBus);
+		ITEMS.register(modEventBus);
 	}
 }

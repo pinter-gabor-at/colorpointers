@@ -2,23 +2,36 @@ package eu.pintergabor.colorpointers.datagen;
 
 import static eu.pintergabor.colorpointers.main.Main.arrowMarks;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.ArrowMarkVariant;
+import eu.pintergabor.colorpointers.main.Main;
+import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.level.block.Block;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 
+public class ModBlockLootTableGenerator extends BlockLootSubProvider {
 
-public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
+	public ModBlockLootTableGenerator(HolderLookup.Provider lookupProvider) {
+		super(Set.of(), FeatureFlags.DEFAULT_FLAGS, lookupProvider);
+	}
 
-	public ModBlockLootTableGenerator(
-		FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-		super(dataOutput, registryLookup);
+	/**
+	 * NeoForge requires it.
+	 */
+	@Override
+	@NotNull
+	protected Iterable<Block> getKnownBlocks() {
+		return Main.BLOCKS.getEntries()
+			.stream()
+			.map(e -> (Block) e.get())
+			.toList();
 	}
 
 	/**
@@ -27,7 +40,7 @@ public class ModBlockLootTableGenerator extends FabricBlockLootTableProvider {
 	@Override
 	public void generate() {
 		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			dropOther(arrowMark.block, arrowMark.item);
+			dropOther(arrowMark.block.get(), arrowMark.item.get());
 		}
 	}
 }

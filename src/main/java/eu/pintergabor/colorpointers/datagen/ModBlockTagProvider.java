@@ -2,28 +2,27 @@ package eu.pintergabor.colorpointers.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.main.Main;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.HolderLookup;
-
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.data.PackOutput;
 
 
-public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+public class ModBlockTagProvider extends BlockTagsProvider {
 
 	public ModBlockTagProvider(
-		FabricDataOutput output,
+		PackOutput output,
 		CompletableFuture<HolderLookup.Provider> registriesFuture) {
-		super(output, registriesFuture);
+		super(output, registriesFuture, Global.MODID);
 	}
 
 	@Override
-	protected void addTags(HolderLookup.Provider arg) {
-		FabricTagBuilder tagBuilder =
-			getOrCreateTagBuilder(Main.ARROW_MARK_BLOCK_TAG);
+	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		for (int i = 0; i < Main.arrowMarks.length; i++) {
-			tagBuilder.add(Main.arrowMarks[i].block);
+			tag(Main.ARROW_MARK_BLOCK_TAG).add(Main.arrowMarks[i].block.get());
 		}
 	}
 }

@@ -54,10 +54,10 @@ public class ModRecipeGenerator extends RecipeProvider {
 	public void buildRecipes() {
 		for (int i = 0; i < Main.arrowMarks.length; i++) {
 			generateArrowMarkItemRecipe(
-				Main.arrowMarks[i].item,
+				Main.arrowMarks[i].item.get(),
 				Main.arrowMarkColors[i].carpet);
 			paintArrowMarkItemRecipe(
-				Main.arrowMarks[i].item,
+				Main.arrowMarks[i].item.get(),
 				Main.arrowMarkColors[i].dyeTagKey);
 		}
 	}

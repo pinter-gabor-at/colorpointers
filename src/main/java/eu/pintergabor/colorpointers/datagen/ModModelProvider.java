@@ -2,41 +2,53 @@ package eu.pintergabor.colorpointers.datagen;
 
 import static eu.pintergabor.colorpointers.main.Main.arrowMarks;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.main.ArrowMarkVariant;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
-
-import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-
+import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.data.PackOutput;
+
+import org.jetbrains.annotations.NotNull;
 
 
-public class ModModelProvider extends FabricModelProvider {
+public class ModModelProvider extends ModelProvider {
 
-	public ModModelProvider(FabricDataOutput output) {
-		super(output);
+	public ModModelProvider(PackOutput output) {
+		super(output, Global.MODID);
 	}
 
 	/**
 	 * Generate block models and block states.
 	 */
-	@Override
-	public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-		ModModelGenerator generator = new ModModelGenerator(blockStateModelGenerator);
+	private static void generateBlockStateModel(@NotNull BlockModelGenerators blockModels) {
+		ModModelGenerator generator = new ModModelGenerator(blockModels);
 		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			generator.registerFlat9Direction(arrowMark.block);
+			generator.registerFlat9Direction(arrowMark.block.get());
 		}
 	}
 
 	/**
 	 * Generate item models.
 	 */
-	@Override
-	public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+	private static void generateItemModels(@NotNull ItemModelGenerators itemModels) {
 		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			itemModelGenerator.generateFlatItem(arrowMark.item, ModelTemplates.FLAT_ITEM);
+			itemModels.generateFlatItem(arrowMark.item.get(), ModelTemplates.FLAT_ITEM);
 		}
+	}
+
+	/**
+	 * Generate blockstates, block and item models.
+	 */
+	@Override
+	protected void registerModels(
+		@NotNull BlockModelGenerators blockModels,
+		@NotNull ItemModelGenerators itemModels) {
+		// Items.
+		generateItemModels(itemModels);
+		// Block models and block states.
+		generateBlockStateModel(blockModels);
 	}
 }

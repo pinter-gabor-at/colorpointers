@@ -2,28 +2,29 @@ package eu.pintergabor.colorpointers.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
+import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.main.Main;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.world.level.block.Block;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 
-
-public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
+public class ModItemTagProvider extends ItemTagsProvider {
 
 	public ModItemTagProvider(
-		FabricDataOutput output,
-		CompletableFuture<HolderLookup.Provider> completableFuture) {
-		super(output, completableFuture);
+		PackOutput output,
+		CompletableFuture<HolderLookup.Provider> lookupProvider,
+		CompletableFuture<TagsProvider.TagLookup<Block>> blockTagProvider) {
+		super(output, lookupProvider, blockTagProvider, Global.MODID);
 	}
 
 	@Override
 	protected void addTags(HolderLookup.Provider arg) {
-		FabricTagBuilder tagBuilder =
-			getOrCreateTagBuilder(Main.ARROW_MARK_ITEM_TAG);
 		for (int i = 0; i < Main.arrowMarks.length; i++) {
-			tagBuilder.add(Main.arrowMarks[i].item);
+			tag(Main.ARROW_MARK_ITEM_TAG).add(Main.arrowMarks[i].item.get());
 		}
 	}
 }
