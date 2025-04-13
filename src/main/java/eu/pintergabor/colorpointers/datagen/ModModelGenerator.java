@@ -139,7 +139,8 @@ public class ModModelGenerator {
 	}
 
 	/**
-	 * Generate models and blockstates for a thin, flat model that has 6 directions and 9 orientations
+	 * Generate models and blockstates for a thin,
+	 * flat model that has 6 directions and 9 orientations.
 	 */
 	public void registerFlat9Direction(Block block) {
 		generator.blockStateOutput.accept(MultiVariantGenerator
