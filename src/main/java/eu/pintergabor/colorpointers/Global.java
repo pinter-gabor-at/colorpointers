@@ -1,5 +1,6 @@
 package eu.pintergabor.colorpointers;
 
+import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +25,16 @@ public final class Global {
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
 	/**
+	 * {@link ArrowMarkBlock} hitbox thickness: 0.001 ... 2.
+	 */
+	public static final double thickness = 0.001D;
+
+	/**
+	 * {@link ArrowMarkBlock} luminance.
+	 */
+	public static final int arrowMarkBlockLumi = 1;
+
+	/**
 	 * Create a mod specific name.
 	 *
 	 * @param path Name without {@link #MODID}.
@@ -32,14 +43,6 @@ public final class Global {
 	public static String modName(String path) {
 		return MODID + ":" + path;
 	}
-
-	// ArrowMarkBlock hitbox margin: 0 ... 2
-	public static final double margin = 1D;
-	// ArrowMarkBlock hitbox thickness: 0.001 ... 2
-	public static final double thickness = 0.001D;
-
-	// ArrowMarkBlock luminance.
-	public static final int arrowMarkBlockLumi = 1;
 
 	/**
 	 * Create a mod specific identifier.
