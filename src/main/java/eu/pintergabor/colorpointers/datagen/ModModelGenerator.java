@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import eu.pintergabor.colorpointers.util.BlockRegion;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -35,8 +36,8 @@ public class ModModelGenerator {
 	 * @param modelId block model *.json file name.
 	 */
 	public static void registerFlatNormal(
-		PropertyDispatch.C2<MultiVariant, Direction, Integer> map,
-		int orientation, ResourceLocation modelId) {
+		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
+		BlockRegion orientation, ResourceLocation modelId) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
 				.with(X_ROT_180));
@@ -65,8 +66,8 @@ public class ModModelGenerator {
 	 * @param modelId block model *.json file name.
 	 */
 	public static void registerFlatFlipped(
-		PropertyDispatch.C2<MultiVariant, Direction, Integer> map,
-		int orientation, ResourceLocation modelId) {
+		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
+		BlockRegion orientation, ResourceLocation modelId) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
 				.with(X_ROT_180.then(Y_ROT_180)));
@@ -126,15 +127,15 @@ public class ModModelGenerator {
 		// Block states.
 		var map = PropertyDispatch
 			.initial(BlockStateProperties.FACING, ArrowMarkBlock.ORIENTATION);
-		registerFlatNormal(map, 0, topleft);
-		registerFlatNormal(map, 1, top);
-		registerFlatNormal(map, 2, topright);
-		registerFlatFlipped(map, 3, right);
-		registerFlatNormal(map, 4, center);
-		registerFlatNormal(map, 5, right);
-		registerFlatFlipped(map, 6, topright);
-		registerFlatFlipped(map, 7, top);
-		registerFlatFlipped(map, 8, topleft);
+		registerFlatNormal(map, BlockRegion.TOPLEFT, topleft);
+		registerFlatNormal(map, BlockRegion.TOPCENTER, top);
+		registerFlatNormal(map, BlockRegion.TOPRIGHT, topright);
+		registerFlatFlipped(map, BlockRegion.MIDDLELEFT, right);
+		registerFlatNormal(map, BlockRegion.MIDDLECENTER, center);
+		registerFlatNormal(map, BlockRegion.MIDDLERIGHT, right);
+		registerFlatFlipped(map, BlockRegion.BOTTOMLEFT, topright);
+		registerFlatFlipped(map, BlockRegion.BOTTOMCENTER, top);
+		registerFlatFlipped(map, BlockRegion.BOTTOMRIGHT, topleft);
 		return map;
 	}
 

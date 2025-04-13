@@ -3,6 +3,7 @@ package eu.pintergabor.colorpointers.items;
 import static eu.pintergabor.colorpointers.util.BlockRegion.getClickedRegion;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
+import eu.pintergabor.colorpointers.util.BlockRegion;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -42,7 +43,7 @@ public class ArrowMarkItem extends BlockItem {
 		final Direction clickedFace = context.getClickedFace();
 		final BlockPos markPosition = pos.relative(clickedFace);
 		// The new block.
-		final int orientation = getClickedRegion(context.getClickLocation(), clickedFace);
+		final BlockRegion orientation = getClickedRegion(context.getClickLocation(), clickedFace);
 		final BlockState blockState = getBlock().defaultBlockState()
 			.setValue(ArrowMarkBlock.FACING, clickedFace)
 			.setValue(ArrowMarkBlock.ORIENTATION, orientation);

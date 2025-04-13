@@ -1,9 +1,11 @@
 package eu.pintergabor.colorpointers.blocks;
 
-import static eu.pintergabor.colorpointers.Global.margin;
 import static eu.pintergabor.colorpointers.Global.thickness;
 import static eu.pintergabor.colorpointers.util.BlockRegion.MIDDLECENTER;
 
+import java.util.List;
+
+import eu.pintergabor.colorpointers.util.BlockRegion;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -23,7 +25,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -36,21 +37,22 @@ public class ArrowMarkBlock extends Block {
 	// Properties.
 	public static final EnumProperty<Direction> FACING =
 		BlockStateProperties.FACING;
-	public static final IntegerProperty ORIENTATION =
-		IntegerProperty.create("orientation", 0, 8);
+	public static final EnumProperty<BlockRegion> ORIENTATION =
+		EnumProperty.create("orientation", BlockRegion.class,
+			List.of(BlockRegion.VALUES));
 	// Shapes.
 	private static final VoxelShape DOWN_AABB = Block.box(
-		margin, 16D - thickness, margin, 16D - margin, 16D, 16D - margin);
+		0D, 16D - thickness, 0D, 16D, 16D, 16D);
 	private static final VoxelShape UP_AABB = Block.box(
-		margin, 0D, margin, 16D - margin, thickness, 16D - margin);
+		0D, 0D, 0D, 16D, thickness, 16D);
 	private static final VoxelShape SOUTH_AABB = Block.box(
-		margin, margin, 0D, 16D - margin, 16D - margin, thickness);
+		0D, 0D, 0D, 16D, 16D, thickness);
 	private static final VoxelShape EAST_AABB = Block.box(
-		0D, margin, margin, thickness, 16D - margin, 16D - margin);
+		0D, 0D, 0D, thickness, 16D, 16D);
 	private static final VoxelShape WEST_AABB = Block.box(
-		16D - thickness, margin, margin, 16D, 16D - margin, 16D - margin);
+		16D - thickness, 0D, 0D, 16D, 16D, 16D);
 	private static final VoxelShape NORTH_AABB = Block.box(
-		margin, margin, 16D - thickness, 16D - margin, 16D - margin, 16D);
+		0D, 0D, 16D - thickness, 16D, 16D, 16D);
 
 	public ArrowMarkBlock(Properties props) {
 		super(props);
