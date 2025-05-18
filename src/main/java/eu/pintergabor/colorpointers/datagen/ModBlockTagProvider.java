@@ -1,5 +1,6 @@
 package eu.pintergabor.colorpointers.datagen;
 
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 import eu.pintergabor.colorpointers.Global;
@@ -11,18 +12,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
 
-public class ModBlockTagProvider extends BlockTagsProvider {
+public final class ModBlockTagProvider extends BlockTagsProvider {
 
 	public ModBlockTagProvider(
 		PackOutput output,
-		CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		CompletableFuture<HolderLookup.Provider> registriesFuture
+	) {
 		super(output, registriesFuture, Global.MODID);
 	}
 
 	@Override
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
-		for (int i = 0; i < Main.arrowMarks.length; i++) {
-			tag(Main.ARROW_MARK_BLOCK_TAG).add(Main.arrowMarks[i].block.get());
-		}
+		Arrays.stream(Main.arrowMarks)
+			.forEach(mark ->
+				tag(Main.ARROW_MARK_BLOCK_TAG).add(mark.block.get()));
 	}
 }

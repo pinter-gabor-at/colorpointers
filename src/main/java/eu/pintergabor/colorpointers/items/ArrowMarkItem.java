@@ -22,33 +22,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 
-public class ArrowMarkItem extends BlockItem {
+public final class ArrowMarkItem extends BlockItem {
 
 	public ArrowMarkItem(Block block, Properties props) {
 		super(block, props);
-	}
-
-	@Override
-	@NotNull
-	public InteractionResult useOn(UseOnContext context) {
-		final Level level = context.getLevel();
-		final BlockPos pos = context.getClickedPos();
-		final BlockState clickedBlockState = level.getBlockState(pos);
-		final Player player = context.getPlayer();
-		final Direction clickedFace = context.getClickedFace();
-		final BlockPos markPosition = pos.relative(clickedFace);
-		if (level.isEmptyBlock(markPosition)) {
-			if (player!=null &&
-				!Block.isFaceFull(clickedBlockState
-					.getCollisionShape(level, pos, CollisionContext.of(player)), clickedFace)) {
-				return InteractionResult.PASS;
-			}
-			if (level.isClientSide) {
-				return InteractionResult.SUCCESS;
-			}
-			return placeBlock(context);
-		}
-		return InteractionResult.FAIL;
 	}
 
 	/**
@@ -72,13 +49,37 @@ public class ArrowMarkItem extends BlockItem {
 			.setValue(ArrowMarkBlock.ORIENTATION, orientation);
 		// Place it.
 		if (level.setBlockAndUpdate(markPosition, blockState)) {
-			if (player!=null && !player.isCreative()) {
+			if (player != null && !player.isCreative()) {
 				stack.shrink(1);
 			}
 			level.playSound(null, markPosition,
 				SoundEvents.MOSS_CARPET_BREAK, SoundSource.BLOCKS,
 				0.5F, RandomSource.create().nextFloat() * 0.2F + 0.8F);
 			return InteractionResult.CONSUME;
+		}
+		return InteractionResult.FAIL;
+	}
+
+	@Override
+	@NotNull
+	public InteractionResult useOn(UseOnContext context) {
+		final Level level = context.getLevel();
+		final BlockPos pos = context.getClickedPos();
+		final BlockState clickedBlockState = level.getBlockState(pos);
+		final Player player = context.getPlayer();
+		final Direction clickedFace = context.getClickedFace();
+		final BlockPos markPosition = pos.relative(clickedFace);
+		if (level.isEmptyBlock(markPosition)) {
+			if (player != null &&
+				!Block.isFaceFull(clickedBlockState
+					.getCollisionShape(level, pos, CollisionContext.of(player)), clickedFace)) {
+				return InteractionResult.PASS;
+			}
+			if (level.isClientSide) {
+				return InteractionResult.SUCCESS;
+			}
+			// Place the block on the server side.
+			return placeBlock(context);
 		}
 		return InteractionResult.FAIL;
 	}

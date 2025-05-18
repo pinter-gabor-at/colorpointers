@@ -2,11 +2,11 @@ package eu.pintergabor.colorpointers.datagen;
 
 import static eu.pintergabor.colorpointers.main.Main.arrowMarks;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
-import eu.pintergabor.colorpointers.main.ArrowMarkVariant;
 import eu.pintergabor.colorpointers.main.Main;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +16,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
 
 
-public class ModBlockLootTableGenerator extends BlockLootSubProvider {
+public final class ModBlockLootTableGenerator extends BlockLootSubProvider {
 
 	public ModBlockLootTableGenerator(HolderLookup.Provider lookupProvider) {
 		super(Set.of(), FeatureFlags.DEFAULT_FLAGS, lookupProvider);
@@ -39,8 +39,8 @@ public class ModBlockLootTableGenerator extends BlockLootSubProvider {
 	 */
 	@Override
 	public void generate() {
-		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			dropOther(arrowMark.block.get(), arrowMark.item.get());
-		}
+		Arrays.stream(arrowMarks)
+			.forEach(mark ->
+				dropOther(mark.block.get(), mark.item.get()));
 	}
 }
