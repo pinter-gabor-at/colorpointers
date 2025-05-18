@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 
-public class ArrowMarkItem extends BlockItem {
+public final class ArrowMarkItem extends BlockItem {
 
 	public ArrowMarkItem(Block block, Properties props) {
 		super(block, props);

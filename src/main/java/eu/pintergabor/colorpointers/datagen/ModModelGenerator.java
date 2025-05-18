@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 
-public class ModModelGenerator {
+public final class ModModelGenerator {
 	private final BlockModelGenerators generator;
 
 	public ModModelGenerator(BlockModelGenerators generator) {
@@ -37,7 +37,8 @@ public class ModModelGenerator {
 	 */
 	public static void registerFlatNormal(
 		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, ResourceLocation modelId) {
+		BlockRegion orientation, ResourceLocation modelId
+	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
 				.with(X_ROT_180));
@@ -67,7 +68,8 @@ public class ModModelGenerator {
 	 */
 	public static void registerFlatFlipped(
 		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, ResourceLocation modelId) {
+		BlockRegion orientation, ResourceLocation modelId
+	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
 				.with(X_ROT_180.then(Y_ROT_180)));
@@ -96,7 +98,7 @@ public class ModModelGenerator {
 	 * Create center model.
 	 */
 	public ResourceLocation createCenterModel(Block block) {
-		ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT)),
+		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT)),
 			Optional.empty(), TextureSlot.TEXTURE);
 		return generator.createSuffixedVariant(block, "", model,
 			identifier -> new TextureMapping()
@@ -107,11 +109,12 @@ public class ModModelGenerator {
 	 * Create shaft+head type models.
 	 */
 	public ResourceLocation createShaftHeadModel(Block block, String suffix) {
-		ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT + suffix)),
+		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT + suffix)),
 			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
-		return generator.createSuffixedVariant(block, suffix, model, identifier -> new TextureMapping()
-			.put(TEXTUREKEY_SHAFT, ModelLocationUtils.getModelLocation(block, "_shaft"))
-			.put(TEXTUREKEY_HEAD, ModelLocationUtils.getModelLocation(block, "_head")));
+		return generator.createSuffixedVariant(block, suffix, model,
+			identifier -> new TextureMapping()
+				.put(TEXTUREKEY_SHAFT, ModelLocationUtils.getModelLocation(block, "_shaft"))
+				.put(TEXTUREKEY_HEAD, ModelLocationUtils.getModelLocation(block, "_head")));
 	}
 
 	/**
@@ -119,13 +122,13 @@ public class ModModelGenerator {
 	 */
 	public PropertyDispatch<MultiVariant> createFlat9Direction(Block block) {
 		// Models.
-		ResourceLocation center = createCenterModel(block);
-		ResourceLocation topleft = createShaftHeadModel(block, "_top_left");
-		ResourceLocation top = createShaftHeadModel(block, "_top");
-		ResourceLocation topright = createShaftHeadModel(block, "_top_right");
-		ResourceLocation right = createShaftHeadModel(block, "_right");
+		final ResourceLocation center = createCenterModel(block);
+		final ResourceLocation topleft = createShaftHeadModel(block, "_top_left");
+		final ResourceLocation top = createShaftHeadModel(block, "_top");
+		final ResourceLocation topright = createShaftHeadModel(block, "_top_right");
+		final ResourceLocation right = createShaftHeadModel(block, "_right");
 		// Block states.
-		var map = PropertyDispatch
+		final var map = PropertyDispatch
 			.initial(BlockStateProperties.FACING, ArrowMarkBlock.ORIENTATION);
 		registerFlatNormal(map, BlockRegion.TOPLEFT, topleft);
 		registerFlatNormal(map, BlockRegion.TOPCENTER, top);

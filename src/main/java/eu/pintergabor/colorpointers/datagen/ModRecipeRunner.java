@@ -13,18 +13,20 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
 
-public class ModRecipeRunner extends FabricRecipeProvider {
+public final class ModRecipeRunner extends FabricRecipeProvider {
 
 	public ModRecipeRunner(
 		FabricDataOutput output,
-		CompletableFuture<HolderLookup.Provider> registriesFuture) {
+		CompletableFuture<HolderLookup.Provider> registriesFuture
+	) {
 		super(output, registriesFuture);
 	}
 
 	@Override
 	@NotNull
 	protected RecipeProvider createRecipeProvider(
-		HolderLookup.Provider registryLookup, RecipeOutput output) {
+		HolderLookup.Provider registryLookup, RecipeOutput output
+	) {
 		return new ModRecipeGenerator(registryLookup, output);
 	}
 

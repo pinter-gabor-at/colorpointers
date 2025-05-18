@@ -41,7 +41,8 @@ public class ArrowMarkVariant {
 	public ArrowMarkItem item;
 
 	private static boolean always(
-		BlockState state, BlockGetter blockView, BlockPos pos) {
+		BlockState state, BlockGetter blockView, BlockPos pos
+	) {
 		return true;
 	}
 
