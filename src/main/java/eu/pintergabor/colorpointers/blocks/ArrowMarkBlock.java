@@ -63,14 +63,16 @@ public class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void createBlockStateDefinition(
-		StateDefinition.Builder<Block, BlockState> builder) {
+		StateDefinition.Builder<Block, BlockState> builder
+	) {
 		builder.add(FACING, ORIENTATION);
 		super.createBlockStateDefinition(builder);
 	}
 
 	@Override
 	protected void spawnDestroyParticles(
-		Level level, Player player, BlockPos pos, BlockState state) {
+		Level level, Player player, BlockPos pos, BlockState state
+	) {
 		if (!level.isClientSide) {
 			level.playSound(null, pos,
 				SoundEvents.MOSS_CARPET_BREAK, SoundSource.BLOCKS,
@@ -84,7 +86,8 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getShape(
-		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context
+	) {
 		return switch (state.getValue(FACING)) {
 			case UP -> UP_AABB;
 			case DOWN -> DOWN_AABB;
@@ -101,7 +104,8 @@ public class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(
-		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		BlockState state, BlockGetter level, BlockPos pos, CollisionContext context
+	) {
 		return Shapes.empty();
 	}
 
@@ -109,7 +113,8 @@ public class ArrowMarkBlock extends Block {
 	 * Unconditional can-replace.
 	 */
 	@Override
-	public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context
+	) {
 		return true;
 	}
 
@@ -118,7 +123,7 @@ public class ArrowMarkBlock extends Block {
 	 */
 	@Override
 	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-		Direction facing = state.getValue(FACING);
+		final Direction facing = state.getValue(FACING);
 		return Block.isFaceFull(level.getBlockState(pos.relative(facing.getOpposite()))
 			.getCollisionShape(level, pos.relative(facing)), facing);
 	}
@@ -131,9 +136,10 @@ public class ArrowMarkBlock extends Block {
 	protected BlockState updateShape(
 		BlockState state, LevelReader level, ScheduledTickAccess tickView,
 		BlockPos pos, Direction direction, BlockPos neighborPos,
-		BlockState neighborState, RandomSource random) {
-		BlockPos supportPos = pos.relative(state.getValue(FACING).getOpposite());
-		boolean support = neighborPos.equals(supportPos);
+		BlockState neighborState, RandomSource random
+	) {
+		final BlockPos supportPos = pos.relative(state.getValue(FACING).getOpposite());
+		final boolean support = neighborPos.equals(supportPos);
 		if (support) {
 			if (!canSurvive(state, level, pos)) {
 				return Blocks.AIR.defaultBlockState();
