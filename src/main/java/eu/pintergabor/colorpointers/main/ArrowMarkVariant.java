@@ -57,7 +57,7 @@ public class ArrowMarkVariant {
 			Block.Properties
 				.of()
 				.replaceable()
-				.noCollission()
+				.noCollision()
 				.noOcclusion()
 				.sound(SoundType.MOSS_CARPET)
 				.lightLevel(value -> arrowMarkBlockLumi)
