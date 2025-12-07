@@ -35,7 +35,9 @@ public class ArrowMarkVariant {
 	 */
 	public DeferredItem<Item> item;
 
-	private static boolean always(BlockState blockState, BlockGetter blockView, BlockPos blockPos) {
+	private static boolean always(
+		BlockState state, BlockGetter blockView, BlockPos pos
+	) {
 		return true;
 	}
 
@@ -50,7 +52,7 @@ public class ArrowMarkVariant {
 			Block.Properties
 				.of()
 				.replaceable()
-				.noCollission()
+				.noCollision()
 				.noOcclusion()
 				.sound(SoundType.MOSS_CARPET)
 				.lightLevel(value -> arrowMarkBlockLumi)

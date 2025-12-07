@@ -63,7 +63,7 @@ public final class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void createBlockStateDefinition(
-		StateDefinition.Builder<Block, BlockState> builder
+		@NotNull StateDefinition.Builder<Block, BlockState> builder
 	) {
 		builder.add(FACING, ORIENTATION);
 		super.createBlockStateDefinition(builder);
@@ -71,10 +71,12 @@ public final class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void spawnDestroyParticles(
-		Level level, @NotNull Player player,
-		@NotNull BlockPos pos, @NotNull BlockState state
+		@NotNull Level level,
+		@NotNull Player player,
+		@NotNull BlockPos pos,
+		@NotNull BlockState state
 	) {
-		if (!level.isClientSide) {
+		if (!level.isClientSide()) {
 			level.playSound(null, pos,
 				SoundEvents.MOSS_CARPET_BREAK, SoundSource.BLOCKS,
 				0.5F, RandomSource.create().nextFloat() * 0.2F + 0.8F);
@@ -87,8 +89,10 @@ public final class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getShape(
-		BlockState state, @NotNull BlockGetter level,
-		@NotNull BlockPos pos, @NotNull CollisionContext context
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull CollisionContext context
 	) {
 		return switch (state.getValue(FACING)) {
 			case UP -> UP_AABB;
@@ -106,8 +110,10 @@ public final class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	public VoxelShape getCollisionShape(
-		@NotNull BlockState state, @NotNull BlockGetter level,
-		@NotNull BlockPos pos, @NotNull CollisionContext context
+		@NotNull BlockState state,
+		@NotNull BlockGetter level,
+		@NotNull BlockPos pos,
+		@NotNull CollisionContext context
 	) {
 		return Shapes.empty();
 	}
@@ -116,8 +122,7 @@ public final class ArrowMarkBlock extends Block {
 	 * Unconditional can-replace.
 	 */
 	@Override
-	public boolean canBeReplaced(
-		@NotNull BlockState state, @NotNull BlockPlaceContext context
+	public boolean canBeReplaced(BlockState state, BlockPlaceContext context
 	) {
 		return true;
 	}
@@ -126,7 +131,11 @@ public final class ArrowMarkBlock extends Block {
 	 * Can place at any full face.
 	 */
 	@Override
-	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+	public boolean canSurvive(
+		@NotNull BlockState state,
+		@NotNull LevelReader level,
+		@NotNull BlockPos pos
+	) {
 		final Direction facing = state.getValue(FACING);
 		return Block.isFaceFull(level.getBlockState(pos.relative(facing.getOpposite()))
 			.getCollisionShape(level, pos.relative(facing)), facing);
@@ -138,8 +147,8 @@ public final class ArrowMarkBlock extends Block {
 	@Override
 	@NotNull
 	protected BlockState updateShape(
-		BlockState state, @NotNull LevelReader level, @NotNull ScheduledTickAccess tickView,
-		BlockPos pos, @NotNull Direction direction, BlockPos neighborPos,
+		@NotNull BlockState state, @NotNull LevelReader level, @NotNull ScheduledTickAccess tickView,
+		@NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos neighborPos,
 		@NotNull BlockState neighborState, @NotNull RandomSource random
 	) {
 		final BlockPos supportPos = pos.relative(state.getValue(FACING).getOpposite());

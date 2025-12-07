@@ -35,7 +35,7 @@ public final class ArrowMarkItem extends BlockItem {
 	 * @return the same as {@link #useOn(UseOnContext)}.
 	 */
 	@NotNull
-	private InteractionResult placeBlock(UseOnContext context) {
+	private InteractionResult placeBlock(@NotNull UseOnContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final Player player = context.getPlayer();
@@ -62,7 +62,7 @@ public final class ArrowMarkItem extends BlockItem {
 
 	@Override
 	@NotNull
-	public InteractionResult useOn(UseOnContext context) {
+	public InteractionResult useOn(@NotNull UseOnContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final BlockState clickedBlockState = level.getBlockState(pos);
@@ -75,7 +75,7 @@ public final class ArrowMarkItem extends BlockItem {
 					.getCollisionShape(level, pos, CollisionContext.of(player)), clickedFace)) {
 				return InteractionResult.PASS;
 			}
-			if (level.isClientSide) {
+			if (level.isClientSide()) {
 				return InteractionResult.SUCCESS;
 			}
 			// Place the block on the server side.
