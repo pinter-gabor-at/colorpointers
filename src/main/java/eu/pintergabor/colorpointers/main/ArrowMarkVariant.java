@@ -49,7 +49,7 @@ public class ArrowMarkVariant {
 		block = Main.BLOCKS.registerBlock(
 			name,
 			ArrowMarkBlock::new,
-			Block.Properties
+			() -> Block.Properties
 				.of()
 				.replaceable()
 				.noCollision()
@@ -58,8 +58,7 @@ public class ArrowMarkVariant {
 				.lightLevel(value -> arrowMarkBlockLumi)
 				.hasPostProcess(ArrowMarkVariant::always)
 				.emissiveRendering(ArrowMarkVariant::always)
-				.pushReaction(PushReaction.DESTROY)
-		);
+				.pushReaction(PushReaction.DESTROY));
 		// Item.
 		item = Main.ITEMS.registerItem(
 			name, props ->
