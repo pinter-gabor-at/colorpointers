@@ -2,9 +2,9 @@ package eu.pintergabor.colorpointers.main;
 
 import static eu.pintergabor.colorpointers.main.Main.arrowMarks;
 
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 
 
 public final class ClientMain {
@@ -14,8 +14,8 @@ public final class ClientMain {
 	 */
 	public static void init() {
 		for (ArrowMarkVariant arrowMark : arrowMarks) {
-			BlockRenderLayerMap.INSTANCE.putBlock(
-				arrowMark.block, RenderType.cutout());
+			BlockRenderLayerMap.putBlock(
+				arrowMark.block, ChunkSectionLayer.CUTOUT);
 		}
 	}
 }
