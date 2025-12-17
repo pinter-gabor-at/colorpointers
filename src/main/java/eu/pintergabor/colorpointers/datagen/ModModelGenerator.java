@@ -17,7 +17,7 @@ import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -37,7 +37,7 @@ public final class ModModelGenerator {
 	 */
 	public static void registerFlatNormal(
 		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, ResourceLocation modelId
+		BlockRegion orientation, Identifier modelId
 	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
@@ -68,7 +68,7 @@ public final class ModModelGenerator {
 	 */
 	public static void registerFlatFlipped(
 		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, ResourceLocation modelId
+		BlockRegion orientation, Identifier modelId
 	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
@@ -97,7 +97,7 @@ public final class ModModelGenerator {
 	/**
 	 * Create center model.
 	 */
-	public ResourceLocation createCenterModel(Block block) {
+	public Identifier createCenterModel(Block block) {
 		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT)),
 			Optional.empty(), TextureSlot.TEXTURE);
 		return generator.createSuffixedVariant(block, "", model,
@@ -108,7 +108,7 @@ public final class ModModelGenerator {
 	/**
 	 * Create shaft+head type models.
 	 */
-	public ResourceLocation createShaftHeadModel(Block block, String suffix) {
+	public Identifier createShaftHeadModel(Block block, String suffix) {
 		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT + suffix)),
 			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
 		return generator.createSuffixedVariant(block, suffix, model,
@@ -122,11 +122,11 @@ public final class ModModelGenerator {
 	 */
 	public PropertyDispatch<MultiVariant> createFlat9Direction(Block block) {
 		// Models.
-		final ResourceLocation center = createCenterModel(block);
-		final ResourceLocation topleft = createShaftHeadModel(block, "_top_left");
-		final ResourceLocation top = createShaftHeadModel(block, "_top");
-		final ResourceLocation topright = createShaftHeadModel(block, "_top_right");
-		final ResourceLocation right = createShaftHeadModel(block, "_right");
+		final Identifier center = createCenterModel(block);
+		final Identifier topleft = createShaftHeadModel(block, "_top_left");
+		final Identifier top = createShaftHeadModel(block, "_top");
+		final Identifier topright = createShaftHeadModel(block, "_top_right");
+		final Identifier right = createShaftHeadModel(block, "_right");
 		// Block states.
 		final var map = PropertyDispatch
 			.initial(BlockStateProperties.FACING, ArrowMarkBlock.ORIENTATION);
