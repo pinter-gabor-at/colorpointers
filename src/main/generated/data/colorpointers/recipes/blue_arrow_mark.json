@@ -16,5 +16,6 @@
   "result": {
     "count": 2,
     "item": "colorpointers:blue_arrow_mark"
-  }
+  },
+  "show_notification": true
 }

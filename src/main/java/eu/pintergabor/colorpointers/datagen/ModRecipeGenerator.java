@@ -1,9 +1,11 @@
 package eu.pintergabor.colorpointers.datagen;
 
+import java.util.function.Consumer;
+
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import eu.pintergabor.colorpointers.main.Main;
 
-import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Item;
@@ -15,13 +17,14 @@ import net.minecraft.util.Identifier;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 
+
 public class ModRecipeGenerator extends FabricRecipeProvider {
 	public ModRecipeGenerator(FabricDataOutput output) {
 		super(output);
 	}
 
 	@Override
-	public void generate(RecipeExporter exporter) {
+	public void generate(Consumer<RecipeJsonProvider> exporter) {
 		for (int i = 0; i < Main.arrowMarks.length; i++) {
 			generateArrowMarkItemRecipe(exporter,
 				Main.arrowMarks[i].item,
@@ -34,11 +37,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
 	/**
 	 * Generate primary {@link ArrowMarkItem} recipes
+	 *
 	 * @param arrowItem The recipe for this item
-	 * @param carpet Same color carpet item
+	 * @param carpet    Same color carpet item
 	 */
 	private void generateArrowMarkItemRecipe(
-		RecipeExporter exporter, Item arrowItem, Item carpet) {
+		Consumer<RecipeJsonProvider> exporter, Item arrowItem, Item carpet) {
 		ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, arrowItem, 2)
 			.pattern(" /")
 			.pattern("C ")
@@ -51,11 +55,12 @@ public class ModRecipeGenerator extends FabricRecipeProvider {
 
 	/**
 	 * Generate {@link ArrowMarkItem} repaint recipes
+	 *
 	 * @param arrowItem The recipe for this item
-	 * @param dye Same color DyeTag
+	 * @param dye       Same color DyeTag
 	 */
 	private void paintArrowMarkItemRecipe(
-		RecipeExporter exporter, Item arrowItem, TagKey<Item> dye) {
+		Consumer<RecipeJsonProvider> exporter, Item arrowItem, TagKey<Item> dye) {
 		ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, arrowItem)
 			.input(Main.ARROW_MARK_ITEM_TAG)
 			.input(dye)
