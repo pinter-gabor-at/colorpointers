@@ -15,6 +15,7 @@
   "block.colorpointers.green_arrow_mark": "Green Arrow Pointer",
   "block.colorpointers.red_arrow_mark": "Red Arrow Pointer",
   "block.colorpointers.black_arrow_mark": "Black Arrow Pointer",
+  "tag.block.colorpointers.block_tag": "Color Pointer Block",
   "item.colorpointers.white_arrow_mark": "White Arrow Pointer",
   "item.colorpointers.orange_arrow_mark": "Orange Arrow Pointer",
   "item.colorpointers.magenta_arrow_mark": "Magenta Arrow Pointer",
@@ -30,5 +31,6 @@
   "item.colorpointers.brown_arrow_mark": "Brown Arrow Pointer",
   "item.colorpointers.green_arrow_mark": "Green Arrow Pointer",
   "item.colorpointers.red_arrow_mark": "Red Arrow Pointer",
-  "item.colorpointers.black_arrow_mark": "Black Arrow Pointer"
+  "item.colorpointers.black_arrow_mark": "Black Arrow Pointer",
+  "tag.item.colorpointers.item_tag": "Color Pointer Item"
 }
