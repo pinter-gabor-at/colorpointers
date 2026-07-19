@@ -18,9 +18,6 @@
     "main": [
       "eu.pintergabor.colorpointers.Mod"
     ],
-    "client": [
-      "eu.pintergabor.colorpointers.ModClient"
-    ],
     "fabric-datagen": [
       "eu.pintergabor.colorpointers.Datagen"
     ]

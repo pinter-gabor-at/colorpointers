@@ -1,6 +1,6 @@
 package eu.pintergabor.colorpointers.main;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -65,8 +65,7 @@ public enum ArrowMarkColor {
 	}
 
 	@SuppressWarnings("unused")
-	@NotNull
-	public String asString() {
+	public @NonNull String asString() {
 		return this.name;
 	}
 }

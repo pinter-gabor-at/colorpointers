@@ -7,15 +7,16 @@ import java.util.Optional;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.util.BlockRegion;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
-import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
+import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -36,8 +37,9 @@ public final class ModModelGenerator {
 	 * @param modelId block model *.json file name.
 	 */
 	public static void registerFlatNormal(
-		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, Identifier modelId
+		PropertyDispatch.@NonNull C2<MultiVariant, Direction, BlockRegion> map,
+		final @NonNull BlockRegion orientation,
+		final @NonNull Identifier modelId
 	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
@@ -67,8 +69,9 @@ public final class ModModelGenerator {
 	 * @param modelId block model *.json file name.
 	 */
 	public static void registerFlatFlipped(
-		PropertyDispatch.C2<MultiVariant, Direction, BlockRegion> map,
-		BlockRegion orientation, Identifier modelId
+		PropertyDispatch.@NonNull C2<MultiVariant, Direction, BlockRegion> map,
+		final @NonNull BlockRegion orientation,
+		final @NonNull Identifier modelId
 	) {
 		map.select(Direction.DOWN, orientation,
 			BlockModelGenerators.plainVariant(modelId)
@@ -97,30 +100,41 @@ public final class ModModelGenerator {
 	/**
 	 * Create center model.
 	 */
-	public Identifier createCenterModel(Block block) {
+	public @NonNull Identifier createCenterModel(final @NonNull Block block) {
 		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT)),
 			Optional.empty(), TextureSlot.TEXTURE);
-		return generator.createSuffixedVariant(block, "", model,
-			identifier -> new TextureMapping()
-				.put(TextureSlot.TEXTURE, ModelLocationUtils.getModelLocation(block)));
+		final Material material = TextureMapping.getBlockTexture(block);
+		return model.create(
+			block,
+			new TextureMapping().put(TextureSlot.TEXTURE, material),
+			generator.modelOutput
+		);
 	}
 
 	/**
 	 * Create shaft+head type models.
 	 */
-	public Identifier createShaftHeadModel(Block block, String suffix) {
+	public @NonNull Identifier createShaftHeadModel(
+		final @NonNull Block block,
+		final @NonNull String suffix
+	) {
 		final ModelTemplate model = new ModelTemplate(Optional.of(Global.modId(PARENT + suffix)),
 			Optional.empty(), TEXTUREKEY_SHAFT, TEXTUREKEY_HEAD);
-		return generator.createSuffixedVariant(block, suffix, model,
-			identifier -> new TextureMapping()
-				.put(TEXTUREKEY_SHAFT, ModelLocationUtils.getModelLocation(block, "_shaft"))
-				.put(TEXTUREKEY_HEAD, ModelLocationUtils.getModelLocation(block, "_head")));
+		final Material shaftmaterial = TextureMapping.getBlockTexture(block, "_shaft");
+		final Material headmaterial = TextureMapping.getBlockTexture(block, "_head");
+		return model.createWithSuffix(
+			block, suffix,
+			new TextureMapping()
+				.put(TEXTUREKEY_SHAFT, shaftmaterial)
+				.put(TEXTUREKEY_HEAD, headmaterial),
+			generator.modelOutput
+		);
 	}
 
 	/**
 	 * Create models and blockstates for 6 directions and 9 orientations.
 	 */
-	public PropertyDispatch<MultiVariant> createFlat9Direction(Block block) {
+	public @NonNull PropertyDispatch<MultiVariant> createFlat9Direction(final @NonNull Block block) {
 		// Models.
 		final Identifier center = createCenterModel(block);
 		final Identifier topleft = createShaftHeadModel(block, "_top_left");

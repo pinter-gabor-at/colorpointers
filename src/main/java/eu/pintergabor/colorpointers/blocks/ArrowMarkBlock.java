@@ -6,7 +6,7 @@ import static eu.pintergabor.colorpointers.util.BlockRegion.MIDDLECENTER;
 import java.util.List;
 
 import eu.pintergabor.colorpointers.util.BlockRegion;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -63,7 +63,7 @@ public class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void createBlockStateDefinition(
-		@NotNull StateDefinition.Builder<Block, BlockState> builder
+		final StateDefinition.@NonNull Builder<Block, BlockState> builder
 	) {
 		builder.add(FACING, ORIENTATION);
 		super.createBlockStateDefinition(builder);
@@ -71,10 +71,10 @@ public class ArrowMarkBlock extends Block {
 
 	@Override
 	protected void spawnDestroyParticles(
-		@NotNull Level level,
-		@NotNull Player player,
-		@NotNull BlockPos pos,
-		@NotNull BlockState state
+		final @NonNull Level level,
+		final @NonNull Player player,
+		final @NonNull BlockPos pos,
+		final @NonNull BlockState state
 	) {
 		if (!level.isClientSide()) {
 			level.playSound(null, pos,
@@ -87,12 +87,11 @@ public class ArrowMarkBlock extends Block {
 	 * Thin, flat outline shape.
 	 */
 	@Override
-	@NotNull
-	public VoxelShape getShape(
-		@NotNull BlockState state,
-		@NotNull BlockGetter level,
-		@NotNull BlockPos pos,
-		@NotNull CollisionContext context
+	public @NonNull VoxelShape getShape(
+		final @NonNull BlockState state,
+		final @NonNull BlockGetter level,
+		final @NonNull BlockPos pos,
+		final @NonNull CollisionContext context
 	) {
 		return switch (state.getValue(FACING)) {
 			case UP -> UP_AABB;
@@ -108,12 +107,11 @@ public class ArrowMarkBlock extends Block {
 	 * Unconditional pass-through.
 	 */
 	@Override
-	@NotNull
-	public VoxelShape getCollisionShape(
-		@NotNull BlockState state,
-		@NotNull BlockGetter level,
-		@NotNull BlockPos pos,
-		@NotNull CollisionContext context
+	public @NonNull VoxelShape getCollisionShape(
+		final @NonNull BlockState state,
+		final @NonNull BlockGetter level,
+		final @NonNull BlockPos pos,
+		final @NonNull CollisionContext context
 	) {
 		return Shapes.empty();
 	}
@@ -122,7 +120,9 @@ public class ArrowMarkBlock extends Block {
 	 * Unconditional can-replace.
 	 */
 	@Override
-	public boolean canBeReplaced(BlockState state, BlockPlaceContext context
+	public boolean canBeReplaced(
+		final @NonNull BlockState state,
+		final @NonNull BlockPlaceContext context
 	) {
 		return true;
 	}
@@ -132,9 +132,9 @@ public class ArrowMarkBlock extends Block {
 	 */
 	@Override
 	public boolean canSurvive(
-		@NotNull BlockState state,
-		@NotNull LevelReader level,
-		@NotNull BlockPos pos
+		final @NonNull BlockState state,
+		final @NonNull LevelReader level,
+		final @NonNull BlockPos pos
 	) {
 		final Direction facing = state.getValue(FACING);
 		return Block.isFaceFull(level.getBlockState(pos.relative(facing.getOpposite()))
@@ -145,11 +145,15 @@ public class ArrowMarkBlock extends Block {
 	 * Break, if neighboring full face block is broken.
 	 */
 	@Override
-	@NotNull
-	protected BlockState updateShape(
-		@NotNull BlockState state, @NotNull LevelReader level, @NotNull ScheduledTickAccess tickView,
-		@NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos neighborPos,
-		@NotNull BlockState neighborState, @NotNull RandomSource random
+	protected @NonNull BlockState updateShape(
+		final @NonNull BlockState state,
+		final @NonNull LevelReader level,
+		final @NonNull ScheduledTickAccess tickView,
+		final @NonNull BlockPos pos,
+		final @NonNull Direction direction,
+		final @NonNull BlockPos neighborPos,
+		final @NonNull BlockState neighborState,
+		final @NonNull RandomSource random
 	) {
 		final BlockPos supportPos = pos.relative(state.getValue(FACING).getOpposite());
 		final boolean support = neighborPos.equals(supportPos);
