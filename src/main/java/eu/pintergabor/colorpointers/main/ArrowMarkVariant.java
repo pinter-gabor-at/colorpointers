@@ -5,6 +5,7 @@ import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
@@ -18,7 +19,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 
 
 /**
@@ -41,7 +42,9 @@ public class ArrowMarkVariant {
 	public ArrowMarkItem item;
 
 	private static boolean always(
-		BlockState state, BlockGetter blockView, BlockPos pos
+		final @NonNull BlockState state,
+		final @NonNull BlockGetter blockView,
+		final @NonNull BlockPos pos
 	) {
 		return true;
 	}
@@ -61,7 +64,6 @@ public class ArrowMarkVariant {
 				.noOcclusion()
 				.sound(SoundType.MOSS_CARPET)
 				.lightLevel(value -> arrowMarkBlockLumi)
-				.hasPostProcess(ArrowMarkVariant::always)
 				.emissiveRendering(ArrowMarkVariant::always)
 				.pushReaction(PushReaction.DESTROY)
 		);
@@ -70,7 +72,7 @@ public class ArrowMarkVariant {
 			block,
 			ArrowMarkItem::new);
 		// Item groups.
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(
 			entries -> entries.accept(item));
 	}
 }
