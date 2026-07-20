@@ -5,18 +5,15 @@ import static eu.pintergabor.colorpointers.Global.arrowMarkBlockLumi;
 import eu.pintergabor.colorpointers.Global;
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
-import org.jspecify.annotations.NonNull;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
@@ -32,30 +29,37 @@ public class ArrowMarkVariant {
 	 * <p>
 	 * Read only outside class.
 	 */
-	public ArrowMarkBlock block;
+	public final ArrowMarkBlock block;
+
+	/**
+	 * ArrowMark block id.
+	 * <p>
+	 * Read only outside class.
+	 */
+	public final ResourceKey<Block> blockId;
 
 	/**
 	 * ArrowMark item.
 	 * <p>
 	 * Read only outside class.
 	 */
-	public ArrowMarkItem item;
+	public final ArrowMarkItem item;
 
-	private static boolean always(
-		final @NonNull BlockState state,
-		final @NonNull BlockGetter blockView,
-		final @NonNull BlockPos pos
-	) {
-		return true;
-	}
+	/**
+	 * ArrowMark item id.
+	 * <p>
+	 * Read only outside class.
+	 */
+	public final ResourceKey<Item> itemId;
 
 	/**
 	 * Create one variant of ArrowMark.
 	 */
 	public ArrowMarkVariant(String name) {
 		// Block.
+		blockId = ResourceKey.create(Registries.BLOCK, Global.modId(name));
 		block = (ArrowMarkBlock) Blocks.register(
-			ResourceKey.create(Registries.BLOCK, Global.modId(name)),
+			blockId,
 			ArrowMarkBlock::new,
 			Block.Properties
 				.of()
@@ -63,14 +67,15 @@ public class ArrowMarkVariant {
 				.noCollision()
 				.noOcclusion()
 				.sound(SoundType.MOSS_CARPET)
-				.lightLevel(value -> arrowMarkBlockLumi)
-				.emissiveRendering(ArrowMarkVariant::always)
+				.lightLevel(_ -> arrowMarkBlockLumi)
+				.emissiveRendering(_ -> true)
 				.pushReaction(PushReaction.DESTROY)
 		);
 		// Item.
-		item = (ArrowMarkItem) Items.registerBlock(
-			block,
-			ArrowMarkItem::new);
+		itemId = ResourceKey.create(Registries.ITEM, Global.modId(name));
+		item = (ArrowMarkItem) Items.registerItem(
+			itemId,
+			props -> new ArrowMarkItem(block, props));
 		// Item groups.
 		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(
 			entries -> entries.accept(item));
