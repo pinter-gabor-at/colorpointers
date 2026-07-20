@@ -6,6 +6,7 @@ import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.items.ArrowMarkItem;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
@@ -36,7 +37,9 @@ public class ArrowMarkVariant {
 	public DeferredItem<Item> item;
 
 	private static boolean always(
-		BlockState state, BlockGetter blockView, BlockPos pos
+		final @NonNull BlockState state,
+		final @NonNull BlockGetter blockView,
+		final @NonNull BlockPos pos
 	) {
 		return true;
 	}
@@ -55,8 +58,7 @@ public class ArrowMarkVariant {
 				.noCollision()
 				.noOcclusion()
 				.sound(SoundType.MOSS_CARPET)
-				.lightLevel(value -> arrowMarkBlockLumi)
-				.hasPostProcess(ArrowMarkVariant::always)
+				.lightLevel(_ -> arrowMarkBlockLumi)
 				.emissiveRendering(ArrowMarkVariant::always)
 				.pushReaction(PushReaction.DESTROY));
 		// Item.
