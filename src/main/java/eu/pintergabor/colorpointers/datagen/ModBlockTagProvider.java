@@ -25,6 +25,6 @@ public final class ModBlockTagProvider extends BlockTagsProvider {
 	protected void addTags(@NotNull HolderLookup.Provider arg) {
 		Arrays.stream(Main.arrowMarks)
 			.forEach(mark ->
-				tag(Main.ARROW_MARK_BLOCK_TAG).add(mark.block.get()));
+				tag(Main.ARROW_MARK_BLOCK_TAG).add(mark.block.getKey()));
 	}
 }
