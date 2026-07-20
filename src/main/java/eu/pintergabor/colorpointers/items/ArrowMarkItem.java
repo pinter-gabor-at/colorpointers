@@ -4,7 +4,7 @@ import static eu.pintergabor.colorpointers.util.BlockRegion.getClickedRegion;
 
 import eu.pintergabor.colorpointers.blocks.ArrowMarkBlock;
 import eu.pintergabor.colorpointers.util.BlockRegion;
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -24,7 +24,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 
 public final class ArrowMarkItem extends BlockItem {
 
-	public ArrowMarkItem(Block block, Properties props) {
+	public ArrowMarkItem(final Block block, final Properties props) {
 		super(block, props);
 	}
 
@@ -34,8 +34,7 @@ public final class ArrowMarkItem extends BlockItem {
 	 * @param context see {@link #useOn(UseOnContext)}.
 	 * @return the same as {@link #useOn(UseOnContext)}.
 	 */
-	@NotNull
-	private InteractionResult placeBlock(@NotNull UseOnContext context) {
+	private @NonNull InteractionResult placeBlock(final @NonNull UseOnContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final Player player = context.getPlayer();
@@ -61,8 +60,7 @@ public final class ArrowMarkItem extends BlockItem {
 	}
 
 	@Override
-	@NotNull
-	public InteractionResult useOn(@NotNull UseOnContext context) {
+	public @NonNull InteractionResult useOn(final @NonNull UseOnContext context) {
 		final Level level = context.getLevel();
 		final BlockPos pos = context.getClickedPos();
 		final BlockState clickedBlockState = level.getBlockState(pos);

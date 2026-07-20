@@ -25,10 +25,10 @@ public final class ModItemTagProvider extends FabricTagsProvider.ItemTagsProvide
 
 	@Override
 	protected void addTags(HolderLookup.@NonNull Provider registries) {
-		final TagAppender<Item, Item> tagBuilder =
-			valueLookupBuilder(Main.ARROW_MARK_ITEM_TAG);
+		final TagAppender<Item> tagBuilder =
+			tag(Main.ARROW_MARK_ITEM_TAG);
 		Arrays.stream(Main.arrowMarks)
-			.map(arrowMarkVariant -> arrowMarkVariant.item)
+			.map(arrowMarkVariant -> arrowMarkVariant.itemId)
 			.forEach(tagBuilder::add);
 	}
 }

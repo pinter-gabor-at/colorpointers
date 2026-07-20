@@ -25,10 +25,10 @@ public final class ModBlockTagProvider extends FabricTagsProvider.BlockTagsProvi
 
 	@Override
 	protected void addTags(HolderLookup.@NonNull Provider registries) {
-		final TagAppender<Block, Block> tagBuilder =
-			valueLookupBuilder(Main.ARROW_MARK_BLOCK_TAG);
+		final TagAppender<Block> tagBuilder =
+			tag(Main.ARROW_MARK_BLOCK_TAG);
 		Arrays.stream(Main.arrowMarks)
-			.map(arrowMarkVariant -> arrowMarkVariant.block)
+			.map(arrowMarkVariant -> arrowMarkVariant.blockId)
 			.forEach(tagBuilder::add);
 	}
 }

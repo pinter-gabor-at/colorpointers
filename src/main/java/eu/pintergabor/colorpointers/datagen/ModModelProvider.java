@@ -25,9 +25,9 @@ public final class ModModelProvider extends FabricModelProvider {
 	 */
 	@Override
 	public void generateBlockStateModels(
-		final @NonNull BlockModelGenerators blockStateModelGenerator
+		final @NonNull BlockModelGenerators generators
 	) {
-		final ModModelGenerator generator = new ModModelGenerator(blockStateModelGenerator);
+		final ModModelGenerator generator = new ModModelGenerator(generators);
 		Arrays.stream(arrowMarks)
 			.map(arrowMark -> arrowMark.block)
 			.forEach(generator::registerFlat9Direction);
@@ -38,10 +38,10 @@ public final class ModModelProvider extends FabricModelProvider {
 	 */
 	@Override
 	public void generateItemModels(
-		final @NonNull ItemModelGenerators itemModelGenerator
+		final @NonNull ItemModelGenerators generators
 	) {
 		Arrays.stream(arrowMarks)
 			.forEach(arrowMark ->
-				itemModelGenerator.generateFlatItem(arrowMark.item, ModelTemplates.FLAT_ITEM));
+				generators.generateFlatItem(arrowMark.item, ModelTemplates.FLAT_ITEM));
 	}
 }
